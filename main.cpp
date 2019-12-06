@@ -338,9 +338,6 @@ void update()
 
 void draw()
 {
-	SDL_SetRenderDrawColor(renderer, DEFAULT_R, DEFAULT_G, DEFAULT_B, 255);
-	SDL_RenderClear(renderer);
-
 	project(player.v);
 	
 	// Draw each segment
@@ -362,6 +359,8 @@ void draw()
 
 
 	SDL_RenderPresent(renderer);
+	SDL_SetRenderDrawColor(renderer, DEFAULT_R, DEFAULT_G, DEFAULT_B, 255);
+	SDL_RenderClear(renderer);
 }
 
 void initialize()
