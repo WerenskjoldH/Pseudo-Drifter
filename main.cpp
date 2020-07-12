@@ -13,6 +13,8 @@
 
 #include "gfxHelper.h"
 
+#include "consoleColorer.h"
+
 #define WINDOW_WIDTH 400
 #define WINDOW_HEIGHT 400
 #define WINDOW_PIXELS WINDOW_HEIGHT * WINDOW_WIDTH
@@ -40,7 +42,6 @@ enum ObjectShape
 	SQUARE
 };
 
-// Stores quite a bit more than a slightly beefed up primitive should
 struct Vector2D {
 	Vector2D(float x = 0, float y = 0, float z = 0) : x{ x }, y{ y }, z{ z }
 	{	}
@@ -74,7 +75,7 @@ struct Segment {
 SDL_Window* window;
 SDL_Renderer* renderer;
 
-std::vector<Segment*> segments;
+std::vector<std::shared_ptr<Segment>> segments;
 int segmentsPassed = 0;
 
 bool keys[5]; // 0 - up, 1 - left, 2 - down, 3 - right, 4 - space
@@ -176,7 +177,7 @@ int main(int args, char* argv[])
 		std::cout << "Subsystems Initialized" << std::endl;
 	else
 	{
-		std::cout << "ERROR::FATAL::Subsystems FAILED to initalize" << std::endl;
+		WRITE_CONSOLE_ERROR("Subsystems", "FATAL", "FAILED to initialize");
 		isRunning = false;
 	}
 
@@ -185,7 +186,7 @@ int main(int args, char* argv[])
 		std::cout << "Window Created" << std::endl;
 	else
 	{
-		std::cout << "ERROR::FATAL::Window FAILED to be created" << std::endl;
+		WRITE_CONSOLE_ERROR("Window", "FATAL", "Failed to be created");
 		isRunning = false;
 	}
 
@@ -197,7 +198,7 @@ int main(int args, char* argv[])
 		std::cout << "Renderer Created" << std::endl;
 	else
 	{
-		std::cout << "ERROR::FATAL::Subsystems FAILED to be created" << std::endl;
+		WRITE_CONSOLE_ERROR("Renderer", "FATAL", "Failed to be created");
 		isRunning = false;
 	}
 
@@ -264,7 +265,6 @@ void updateInputs(SDL_Event& e)
 void checkClipping()
 {
 	// Clip Objects
-	/// ... Kinda similar to the above check, just do it with an array of objects
 }
 
 // We also handle clipping here
@@ -286,7 +286,7 @@ void segmentGeneration()
 
 		// Generate and push back new segment onto vector
 		// Preferably, we should probably just recycle the erased segment's data
-		segments.push_back(new Segment(
+		segments.push_back(std::make_shared<Segment>(
 			Vector2D(ROAD_WIDTH_DEFAULT / 2.f, 0, (*segments[SEGMENTS - 1]).topLeft.z + SEGMENT_WIDTH),
 			Vector2D(-1 * ROAD_WIDTH_DEFAULT / 2.f, 0, (*segments[SEGMENTS - 1]).topRight.z + SEGMENT_WIDTH),
 			Vector2D(ROAD_WIDTH_DEFAULT / 2.f, 0, (*segments[SEGMENTS - 1]).topLeft.z),
@@ -385,7 +385,7 @@ void initialize()
 			 type = 1;
 		}
 
-		segments.push_back(new Segment(
+		segments.push_back(std::make_shared<Segment>(
 			Vector2D(ROAD_WIDTH_DEFAULT/2.f, 0, SEGMENT_WIDTH + i * SEGMENT_WIDTH),
 			Vector2D(-1 * ROAD_WIDTH_DEFAULT / 2.f, 0, SEGMENT_WIDTH + i * SEGMENT_WIDTH),
 			Vector2D(ROAD_WIDTH_DEFAULT/2.f, 0, i * SEGMENT_WIDTH),
