@@ -132,14 +132,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="gameObject.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="player.cpp" />
     <ClCompile Include="road.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="consoleColorer.h" />
     <ClInclude Include="definitions.h" />
+    <ClInclude Include="gameObject.h" />
     <ClInclude Include="gfxHelper.h" />
     <ClInclude Include="matrix.h" />
+    <ClInclude Include="player.h" />
     <ClInclude Include="precision.h" />
     <ClInclude Include="road.h" />
     <ClInclude Include="vector.h" />

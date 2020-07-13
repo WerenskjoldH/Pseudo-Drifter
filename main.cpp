@@ -105,7 +105,6 @@ int main(int args, char* argv[])
 			}
 			
 			updateInputs(e);
-
 		}
 
 		update();
@@ -204,12 +203,12 @@ void draw()
 	
 	road->draw(renderer, camera.v, camera.depth);
 
-	rn::dualVector pd(rn::vector3f(0, 0, 1000));
-	rn::project(pd, camera.v, camera.depth, WINDOW_WIDTH, WINDOW_HEIGHT, ROAD_WIDTH_DEFAULT);
+	rn::dualVector floatingDot(rn::vector3f(0, 0, 1000));
+	rn::project(floatingDot, camera.v, camera.depth, WINDOW_WIDTH, WINDOW_HEIGHT, ROAD_WIDTH_DEFAULT);
 
-	if (pd.wV.z > player.dV.wV.z) {
+	if (floatingDot.wV.z > player.dV.wV.z) {
 		SDL_SetRenderDrawColor(renderer, 144, 255, 144, 255);
-		gfxDrawBrenCircle(renderer, pd.sV.x, pd.sV.y, 10, true);
+		gfxDrawBrenCircle(renderer, floatingDot.sV.x, floatingDot.sV.y, 10, true);
 	}
 
 	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);

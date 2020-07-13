@@ -21,6 +21,12 @@
     <ClCompile Include="road.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="gameObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="player.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gfxHelper.h">
@@ -42,6 +48,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="vector.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="player.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="gameObject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
