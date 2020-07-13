@@ -1,10 +1,14 @@
 #pragma once
 
+// That's some ambiguity right there, thank goodness for namespaces!
+#include <vector>
 #include "vector.h"
+
+#include <SDL/SDL.h>
 
 struct Segment {
 	// We will track the top-left points and the center of the top ( for simplicity sake )
-	rn::vector3f topRight, bottomRight, topLeft, bottomLeft;
+	rn::dualVector topRight, bottomRight, topLeft, bottomLeft;
 	float color = 0;
 	bool type = 0;
 
@@ -15,10 +19,19 @@ struct Segment {
 class Road
 {
 private:
-	Road()
-	{
-
-	}
+	std::vector<std::shared_ptr<Segment>> roadSegments;
 
 public:
+
+private:
+	void drawSegment(SDL_Renderer* renderer, Segment& s, const rn::vector3f& camera, float depth);
+	void segmentGeneration(rn::vector3f camera);
+	int getSegmentIndexFromDist(float dist);
+
+public:
+	Road();
+	~Road();
+
+	void update(float dt);
+	void draw(SDL_Renderer* renderer, rn::vector3f camera, float depth);
 };

@@ -6,7 +6,7 @@
 #define PI  3.14159265359
 
 // Don't use this standalone
-void gfxDrawCircle(SDL_Renderer* renderer, int cx, int cy, int x, int y)
+inline void gfxDrawCircle(SDL_Renderer* renderer, int cx, int cy, int x, int y)
 {
 	SDL_RenderDrawPoint(renderer, cx + x, cy + y);
 	SDL_RenderDrawPoint(renderer, cx - x, cy + y);
@@ -19,7 +19,7 @@ void gfxDrawCircle(SDL_Renderer* renderer, int cx, int cy, int x, int y)
 }
 
 // Don't use this standalone
-void gfxDrawFilledCircle(SDL_Renderer* renderer, int cx, int cy, int x, int y)
+inline void gfxDrawFilledCircle(SDL_Renderer* renderer, int cx, int cy, int x, int y)
 {
 	for (int i = -x; i < x; i++)
 	{
@@ -35,7 +35,7 @@ void gfxDrawFilledCircle(SDL_Renderer* renderer, int cx, int cy, int x, int y)
 }
 
 // Bresenham's Circle Algorithm
-void gfxDrawBrenCircle(SDL_Renderer* renderer, int cx, int cy, int radius, bool filled)
+inline void gfxDrawBrenCircle(SDL_Renderer* renderer, int cx, int cy, int radius, bool filled)
 {
 	if (radius <= 1)
 	{
@@ -79,7 +79,7 @@ void gfxDrawBrenCircle(SDL_Renderer* renderer, int cx, int cy, int radius, bool 
 	angle		: The angle that the line is aimed at ( in radians )
 */
 static int maxLength = 0;
-void gfxDrawEndlessLine(SDL_Renderer* renderer, int cx, int cy, int sw, int sh, float angle)
+inline void gfxDrawEndlessLine(SDL_Renderer* renderer, int cx, int cy, int sw, int sh, float angle)
 {
 	if (maxLength == 0)
 	{

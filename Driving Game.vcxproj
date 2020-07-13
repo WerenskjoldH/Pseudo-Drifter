@@ -133,14 +133,16 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="road.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Ronin-Math-Libary\matrix.h" />
-    <ClInclude Include="..\Ronin-Math-Libary\precision.h" />
-    <ClInclude Include="..\Ronin-Math-Libary\vector.h" />
     <ClInclude Include="consoleColorer.h" />
+    <ClInclude Include="definitions.h" />
     <ClInclude Include="gfxHelper.h" />
+    <ClInclude Include="matrix.h" />
+    <ClInclude Include="precision.h" />
     <ClInclude Include="road.h" />
+    <ClInclude Include="vector.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

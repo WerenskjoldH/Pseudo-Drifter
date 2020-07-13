@@ -198,7 +198,7 @@ namespace rn {
 
 	};
 
-	matrix operator*(const real s, matrix& const m)
+	inline matrix operator*(const real s, matrix& const m)
 	{
 		matrix temp = m;
 
@@ -209,7 +209,7 @@ namespace rn {
 		return temp;
 	}
 
-	matrix operator*(matrix&  m, const real s)
+	inline matrix operator*(matrix&  m, const real s)
 	{
 
 		matrix temp = m;
@@ -222,7 +222,7 @@ namespace rn {
 	}
 
 	// Maybe format in the future?
-	std::ostream& operator<<(std::ostream& os, matrix& m)
+	inline std::ostream& operator<<(std::ostream& os, matrix& m)
 	{
 		for (int x = 0; x < m.rowSize; x++)
 		{
@@ -234,7 +234,7 @@ namespace rn {
 		return os;
 	}
 
-	std::istream& operator>>(std::istream& is, matrix& m)
+	inline std::istream& operator>>(std::istream& is, matrix& m)
 	{
 		for (int x = 0; x < m.rowSize; x++)
 			for (int y = 0; y < m.columnSize; y++)
