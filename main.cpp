@@ -15,6 +15,7 @@
 #include "consoleColorer.h"
 
 #include "road.h"
+#include "player.h"
 
 #include "definitions.h"
 
@@ -23,13 +24,6 @@ enum ObjectShape
 	CIRCLE,
 	SQUARE
 };
-
-static struct Player {
-	// Add player.z to camera.z to get world position of player
-	rn::dualVector dV;
-	float dist = 0;
-	float horizSpeed = 0, horizAcceleration = 0, vertSpeed = 0, vertAcceleration = 0;
-} player;
 
 static struct Camera {
 	rn::vector3f v;
@@ -41,10 +35,10 @@ SDL_Renderer* renderer;
 
 std::shared_ptr<Road> road;
 
+std::shared_ptr<Player> player;
+
 std::vector<std::shared_ptr<Segment>> segments;
 int segmentsPassed = 0;
-
-bool keys[5]; // 0 - up, 1 - left, 2 - down, 3 - right, 4 - space
 
 float iTime = 0.f;
 
@@ -60,6 +54,82 @@ void draw();
 void initialize();
 
 int main(int args, char* argv[])
+{
+	initialize();
+
+	SDL_SetRenderDrawColor(renderer, DEFAULT_R, DEFAULT_G, DEFAULT_B, 255);
+	SDL_RenderClear(renderer);
+
+	SDL_Event e;
+	while (isRunning)
+	{
+		while (SDL_PollEvent(&e))
+		{
+			if (e.type == SDL_QUIT)
+			{
+				isRunning = false;
+			}
+
+			player->updateInputs(e);
+		}
+
+		update();
+
+		draw();
+
+		iTime += DELTA_TIME;
+	}
+
+	SDL_DestroyWindow(window);
+	SDL_DestroyRenderer(renderer);
+	SDL_Quit();
+
+	return 0;
+}
+
+// Check clipping of objects and segments
+void checkClipping()
+{
+	// Clip Objects
+}
+
+void update()
+{
+
+	// Object Clipping
+	checkClipping();
+
+	road->update(DELTA_TIME);
+
+	player->update(DELTA_TIME);
+
+	camera.v.z = player->dV.wV.z - camera.depth * camera.v.y;
+	camera.v.x = player->dV.wV.x;
+	
+}
+
+void draw()
+{
+	rn::project(player->dV, camera.v, camera.depth, WINDOW_WIDTH, WINDOW_HEIGHT, ROAD_WIDTH_DEFAULT);
+	
+	road->draw(renderer, camera.v, camera.depth);
+
+	rn::dualVector floatingDot(rn::vector3f(0, 0, 1000));
+	rn::project(floatingDot, camera.v, camera.depth, WINDOW_WIDTH, WINDOW_HEIGHT, ROAD_WIDTH_DEFAULT);
+
+	if (floatingDot.wV.z > player->dV.wV.z) {
+		SDL_SetRenderDrawColor(renderer, 144, 255, 144, 255);
+		gfxDrawBrenCircle(renderer, floatingDot.sV.x, floatingDot.sV.y, 10, true);
+	}
+
+	player->draw(renderer, camera.v, camera.depth);
+
+	SDL_RenderPresent(renderer);
+	SDL_SetRenderDrawColor(renderer, DEFAULT_R, DEFAULT_G, DEFAULT_B, 255);
+	SDL_RenderClear(renderer);
+}
+
+void initialize()
 {
 	// Create Window and Begin
 	if (SDL_Init(SDL_INIT_EVERYTHING) == 0)
@@ -79,8 +149,6 @@ int main(int args, char* argv[])
 		isRunning = false;
 	}
 
-	initialize();
-
 	renderer = SDL_CreateRenderer(window, -1, 0);
 
 	if (renderer)
@@ -91,137 +159,6 @@ int main(int args, char* argv[])
 		isRunning = false;
 	}
 
-	SDL_SetRenderDrawColor(renderer, DEFAULT_R, DEFAULT_G, DEFAULT_B, 255);
-	SDL_RenderClear(renderer);
-
-	SDL_Event e;
-	while (isRunning)
-	{
-		while (SDL_PollEvent(&e))
-		{
-			if (e.type == SDL_QUIT)
-			{
-				isRunning = false;
-			}
-			
-			updateInputs(e);
-		}
-
-		update();
-
-		draw();
-
-		iTime += DELTA_TIME;
-	}
-
-	SDL_DestroyWindow(window);
-	SDL_DestroyRenderer(renderer);
-	SDL_Quit();
-
-	return 0;
-}
-
-void updateInputs(SDL_Event& e)
-{
-
-	if (e.type == SDL_KEYDOWN)
-		if (e.key.keysym.sym == SDLK_w)
-			keys[0] = 1;
-		else if (e.key.keysym.sym == SDLK_a)
-			keys[1] = 1;
-		else if (e.key.keysym.sym == SDLK_s)
-			keys[2] = 1;
-		else if (e.key.keysym.sym == SDLK_d)
-			keys[3] = 1;
-		else if (e.key.keysym.sym == SDLK_SPACE)
-			keys[4] = 1;
-
-	if (e.type == SDL_KEYUP)
-		if (e.key.keysym.sym == SDLK_w)
-			keys[0] = 0;
-		else if (e.key.keysym.sym == SDLK_a)
-			keys[1] = 0;
-		else if (e.key.keysym.sym == SDLK_s)
-			keys[2] = 0;
-		else if (e.key.keysym.sym == SDLK_d)
-			keys[3] = 0;
-		else if (e.key.keysym.sym == SDLK_SPACE)
-			keys[4] = 0;
-}
-
-// Check clipping of objects and segments
-void checkClipping()
-{
-	// Clip Objects
-}
-
-void input()
-{
-	if (keys[0] == 1 && player.vertSpeed < MAX_SPEED_VERTICAL)
-	{
-		player.vertSpeed += 0.001f;
-	}
-
-	if (keys[2] == 1 && player.vertSpeed > -1 * MAX_SPEED_VERTICAL)
-	{
-		player.vertSpeed -= 0.001f;
-	}
-
-	player.vertSpeed -= 0.0001f;
-
-	if (player.vertSpeed < 0)
-		player.vertSpeed = 0;
-
-	if (keys[1] == 1)
-		player.dV.wV.x -= 0.1f;
-
-	if (keys[3] == 1)
-		player.dV.wV.x += 0.1f;
-
-	player.dV.wV.z += player.vertSpeed;
-
-	camera.v.z = player.dV.wV.z - camera.depth * camera.v.y;
-	camera.v.x = player.dV.wV.x;
-}
-
-void update()
-{
-
-	// Object Clipping
-	checkClipping();
-
-	road->update(DELTA_TIME);
-
-	// Input
-	input();	
-	
-}
-
-void draw()
-{
-	rn::project(player.dV, camera.v, camera.depth, WINDOW_WIDTH, WINDOW_HEIGHT, ROAD_WIDTH_DEFAULT);
-	
-	road->draw(renderer, camera.v, camera.depth);
-
-	rn::dualVector floatingDot(rn::vector3f(0, 0, 1000));
-	rn::project(floatingDot, camera.v, camera.depth, WINDOW_WIDTH, WINDOW_HEIGHT, ROAD_WIDTH_DEFAULT);
-
-	if (floatingDot.wV.z > player.dV.wV.z) {
-		SDL_SetRenderDrawColor(renderer, 144, 255, 144, 255);
-		gfxDrawBrenCircle(renderer, floatingDot.sV.x, floatingDot.sV.y, 10, true);
-	}
-
-	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-	gfxDrawBrenCircle(renderer, player.dV.sV.x, player.dV.sV.y, 20.f, true);
-
-
-	SDL_RenderPresent(renderer);
-	SDL_SetRenderDrawColor(renderer, DEFAULT_R, DEFAULT_G, DEFAULT_B, 255);
-	SDL_RenderClear(renderer);
-}
-
-void initialize()
-{
 	road = std::make_shared<Road>();
 
 	camera.v.x = 0;
@@ -229,7 +166,5 @@ void initialize()
 	camera.v.z = 0;
 	camera.depth = 1.f / tanf((CAMERA_FOV / 2.f) * PI / 180.f);
 
-	player.dV.wV.x = 0;
-	player.dV.wV.y = 0;
-	player.dV.wV.z = camera.depth*camera.v.y;
+	player = std::make_shared<Player>(rn::vector3f(0), camera.depth, camera.v.y);
 }

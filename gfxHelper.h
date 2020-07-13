@@ -93,7 +93,7 @@ inline void gfxDrawEndlessLine(SDL_Renderer* renderer, int cx, int cy, int sw, i
 	SDL_RenderDrawLine(renderer, cx + posX, cy + posY, cx - posX, cy - posY);
 }
 
-void gfxDrawHorizontalLine(SDL_Renderer* renderer, int x, int y, int width)
+inline void gfxDrawHorizontalLine(SDL_Renderer* renderer, int x, int y, int width)
 {
 	SDL_RenderDrawLine(renderer, x - width, y, x + width, y);
 }

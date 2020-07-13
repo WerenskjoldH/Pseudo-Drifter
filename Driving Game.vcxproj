@@ -142,6 +142,7 @@
     <ClInclude Include="definitions.h" />
     <ClInclude Include="gameObject.h" />
     <ClInclude Include="gfxHelper.h" />
+    <ClInclude Include="inputManager.h" />
     <ClInclude Include="matrix.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="precision.h" />
