@@ -1,6 +1,14 @@
 #ifndef CONSOLE_COLORIZER_H
 #define CONSOLE_COLORIZER_H
 
+/*
+	File: consoleColorer.h
+	Description: This file is from my Windows Font(Text) Colorizer project, it implements simple functions and a class for printing colored text in a windows console
+					I hope to expand this in the future for supporting different OSs, this approach is unnecessarily limiting
+
+	https://github.com/WerenskjoldH/Windows-Font-Colorizer
+*/
+
 // If you don't want to use the ColorText class, then disable it here
 #define USING_COLOR_TEXT true
 

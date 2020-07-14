@@ -1,6 +1,10 @@
 #ifndef DEFINITIONS_H
 #define DEFINITIONS_H
 
+/*
+	Description: This file contains most all project wide definitions for simple editing
+*/
+
 #define WINDOW_WIDTH 400
 #define WINDOW_HEIGHT 400
 #define WINDOW_PIXELS WINDOW_HEIGHT * WINDOW_WIDTH

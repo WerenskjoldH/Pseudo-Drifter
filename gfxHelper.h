@@ -1,6 +1,14 @@
 #ifndef GFX_HELPER_H
 #define GFX_HELPER_H
 
+/*
+	Description: This helper file is used for handling all drawing functions in the game
+					By consolidating all these functions we can quickly make sweeping changes to the rendering process should a better/faster approach be desired
+
+	To-do: 
+		* Support for rendering sprites
+*/
+
 #include <SDL/SDL.h>
 
 #define PI  3.14159265359

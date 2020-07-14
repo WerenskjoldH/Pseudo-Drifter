@@ -1,6 +1,20 @@
 #ifndef CAMERA_H
 #define CAMERA_H
 
+/*
+	Description: This file contains all declarations pertaining to the camera class.
+	
+	The Camera class is work-in-progress and instances of the class currently just track behind an object moving without rotation on the x and z axis, point in the positive z-axis.
+
+	To-do:
+		* Each camera instance should have its own render target and be used by all drawable objects during the draw step to draw to its render target.
+		* Easing functions for moving the camera
+		* Additional (proper) support for target independent cameras
+			- I.e. track cameras, mirrors, etc.
+		* Rotation
+		* Different tracking modes for camera instances with targets
+*/
+
 #include "vector.h"
 
 // Being able to support multiple cameras in the scene and deciding which one to render with is a powerful thing
