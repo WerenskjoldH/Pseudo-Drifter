@@ -10,7 +10,7 @@
 
 ## Purpose
 
-This project is a side-effort to build a SNES-styled racing *engine* using [SDL2](https://www.libsdl.org/download-2.0.php) and C++17. Right now there is no specific game I want to really design with this foundation, I just really enjoy the process of building basic engine architecture. However, once the foundation is set, I will probably begin to plan specifics of the kind of game I would like to build with this codebase.
+This project is a side-effort to build a SNES-styled racing *engine* using [SDL2](https://www.libsdl.org/download-2.0.php) and C++17. Right now there is no specific game I want to really design with this foundation, I just really enjoy the process of building basic engine architecture. However, once the foundation is set, I will probably begin to plan specifics of the kind of game I would like to build with this codebase. That means things aren't too visually impressive for the time being, and probably won't be for a decent bit longer - as you can see below. **:s**
 
 <p align="center"><img width=65% src="media/pseudoDrifterGif.gif"></p>
 
