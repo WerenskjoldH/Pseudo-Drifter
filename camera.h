@@ -8,9 +8,10 @@
 
 	To-do:
 		* Each camera instance should have its own render target and be used by all drawable objects during the draw step to draw to its render target.
+		* The camera should handle culling and ordering of draws, but first we should simply look into a function to describe if an objects screen space coordinates are culled or not. This is all run on one thread of the CPU and is expensive. That also beckons the need for multi-threading at some point...
 		* Easing functions for moving the camera
 		* Additional (proper) support for target independent cameras
-			- I.e. track cameras, mirrors, etc.
+			- I.e. tracking cameras, mirrors, etc.
 		* Rotation
 		* Different tracking modes for camera instances with targets
 */
