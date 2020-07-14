@@ -8,11 +8,15 @@
 		It is quite simple, but more than enough for right now.
 
 	To-do:
+		* Road should handle how many segments should be drawn and not hard-coded by a pre-processor definition
 		* Need a function w/ a boolean return type to test collisions with the road
 		* Optimize road segments to re-use culled segments, as well perhaps optimize distance culling
 		* Ability to add more randomized elements to give more character to the tracks
 		* Road styles w/ various properties
 			- I.e. if we want a dirt road perhaps we have more friction, faster steering, but more difficult -slippery- controls
+
+	Acknowledgements: The handling of drawing road segments (and the idea of this project) is based off of the javascript SNES-styled driving game linked below
+	Link: https://codeincomplete.com/articles/javascript-racer/
 */
 
 // That's some ambiguity right there, thank goodness for namespaces!
@@ -23,6 +27,7 @@
 
 class Camera;
 
+// Segment of road, these are individually rendered to create a continuous road
 struct Segment {
 	// We will track the top-left points and the center of the top ( for simplicity sake )
 	rn::dualVector topRight, bottomRight, topLeft, bottomLeft;
@@ -36,20 +41,41 @@ struct Segment {
 class Road
 {
 private:
+	// Contains all active road segments
 	std::vector<std::shared_ptr<Segment>> roadSegments;
 
 public:
 
 private:
+	/*	Draws a given segment
+		@param renderer Renderer the segment is drawn to
+		@param s Segment to be drawn
+		@param camera Camera to be projected to
+	*/
 	void drawSegment(SDL_Renderer* renderer, Segment& s, const Camera& camera);
+	
+	/* Generates new segments when passed segments are culled
+		@param camera Camera that is rendered to
+	*/
 	void segmentGeneration(rn::vector3f camera);
+
+	/*
+		Gets segment index in vector, from the road distance from start
+		@param z-axis distance
+	*/
 	int getSegmentIndexFromDist(float dist);
 
 public:
 	Road();
 	~Road();
 
+	// @param dt Delta time
 	void update(float dt);
+
+	/*
+		@param renderer Target renderer this object will draw to
+		@param camera Camera this object will project to for rendering
+	*/
 	void draw(SDL_Renderer* renderer, const Camera& c);
 };
 

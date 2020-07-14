@@ -4,7 +4,9 @@
 
 Road::Road()
 {
-	// Going closest to farthest
+	/*
+		Initialize the starting road segments from closest to farthest
+	*/
 	for (int i = 0; i <= SEGMENTS; i++)
 	{
 		Uint8 color = 200;
@@ -30,11 +32,13 @@ Road::~Road()
 
 void Road::update(float dt)
 {
-	//segmentGeneration()
+
 }
 
 void Road::draw(SDL_Renderer* renderer, const Camera& camera)
 {
+	// Determine if we need to cull a road segment and place a new segment at the farthest distance
+	// I'm still not certain if this should be a part of the draw step or not since it will also potentially affect game logic
 	segmentGeneration(camera.v);
 
 	// Draw each segment
@@ -49,13 +53,21 @@ void Road::drawSegment(SDL_Renderer* renderer, Segment& s, const Camera& camera)
 {
 		int rows = 0;
 
+		// Take each vertex of the road segment and project its world coordinates to screen coordinates
 		rn::project(s.bottomLeft, camera.v, camera.depth, WINDOW_WIDTH, WINDOW_HEIGHT, ROAD_WIDTH_DEFAULT);
 		rn::project(s.bottomRight, camera.v, camera.depth, WINDOW_WIDTH, WINDOW_HEIGHT, ROAD_WIDTH_DEFAULT);
 		rn::project(s.topLeft, camera.v, camera.depth, WINDOW_WIDTH, WINDOW_HEIGHT, ROAD_WIDTH_DEFAULT);
 		rn::project(s.topRight, camera.v, camera.depth, WINDOW_WIDTH, WINDOW_HEIGHT, ROAD_WIDTH_DEFAULT);
 
+		// If the top left vertex of the segment is located behind the camera, then we don't draw it
+		//	To-do: We should have something similar for segments that are barely visible to the camera/past far culling plane
 		if (s.topLeft.wV.z - camera.v.z - (camera.depth * camera.v.y) < 0)
 			return;
+
+		/*
+			In the coming steps we are determining the boundaries of our screen-space road segment and creating a discrete range along the left and right slope of the road segment
+			that we will draw a line between
+		*/
 
 		int bottomRow, topRow;
 		bottomRow = s.bottomLeft.sV.y;
@@ -70,6 +82,7 @@ void Road::drawSegment(SDL_Renderer* renderer, Segment& s, const Camera& camera)
 		float leftSlope = 1.f / ((s.topLeft.sV.y - s.bottomLeft.sV.y) / (s.topLeft.sV.x - s.bottomLeft.sV.x));
 		float rightSlope = 1.f / ((s.topRight.sV.y - s.bottomRight.sV.y) / (s.topRight.sV.x - s.bottomRight.sV.x));
 
+		// How many discrete points are there between the top vertexes and their bottom counterparts
 		int tLmBl = s.topLeft.sV.y - s.bottomLeft.sV.y;
 		int tRmBr = s.topRight.sV.y - s.bottomRight.sV.y;
 
@@ -86,13 +99,14 @@ void Road::drawSegment(SDL_Renderer* renderer, Segment& s, const Camera& camera)
 			// Calculate inner points from x1 and x2
 			int runnerLength = fabsf((s.bottomLeft.sV.x + x1) - (s.bottomRight.sV.x + x2)) * PERCENT_RUNNER;
 
-			// Draw Road
+			// Draw the x-axis components of the road ( outer colors, mid-line, etc. )
 			// Draw left edge, center, right edge
 
 			if (s.type == 0)
 				SDL_SetRenderDrawColor(renderer, 200, 100, 100, 255);
 			else
 				SDL_SetRenderDrawColor(renderer, 240, 240, 240, 255);
+
 			SDL_RenderDrawLine(renderer, s.bottomLeft.sV.x + x1, s.topLeft.sV.y + i, s.bottomLeft.sV.x + x1 + runnerLength, s.topRight.sV.y + i);
 			SDL_RenderDrawLine(renderer, s.bottomRight.sV.x + x2, s.topLeft.sV.y + i, s.bottomRight.sV.x + x2 - runnerLength, s.topRight.sV.y + i);
 

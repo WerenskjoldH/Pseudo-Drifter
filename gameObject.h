@@ -18,13 +18,21 @@ class Camera;
 class GameObject
 {
 protected:
+	// Dual vector used for storing world space and projected screen-space of a point/vertex
 	rn::dualVector dV;
 public:
 	virtual ~GameObject();
 
+	// @return Gets a direct reference to the game objects dual vector
 	rn::dualVector& getDualVector();
 
+	// @param dt Delta time
 	virtual void update(float dt) = 0;
+
+	/*
+		@param renderer Target renderer this object will draw to
+		@param camera Camera this object will project to for rendering
+	*/
 	virtual void draw(SDL_Renderer* renderer, const Camera& camera) = 0;
 };
 #endif

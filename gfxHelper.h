@@ -43,6 +43,13 @@ inline void gfxDrawFilledCircle(SDL_Renderer* renderer, int cx, int cy, int x, i
 }
 
 // Bresenham's Circle Algorithm
+/* Draws a circle using the Bresenham Circle Algorithm
+	@param SDL_Renderer Render target
+	@param cx X-axis component of the circle's center
+	@param cy Y-axis component of the circle's center
+	@oaram radius Radius of the circle
+	@param filled If the circle should be filled or not
+*/
 inline void gfxDrawBrenCircle(SDL_Renderer* renderer, int cx, int cy, int radius, bool filled)
 {
 	if (radius <= 1)
@@ -78,15 +85,15 @@ inline void gfxDrawBrenCircle(SDL_Renderer* renderer, int cx, int cy, int radius
 	}
 }
 
-/* Parameters:
-	SDL_Renderer: Render target
-	cx			: The x-axis component of the point where the line will rotate
-	cy			: The y-axis component of the point where the line will rotate
-	sw			: The screen width
-	sh			: The screen height
-	angle		: The angle that the line is aimed at ( in radians )
-*/
 static int maxLength = 0;
+/* Draws an "endless" line to the renderer
+	@param SDL_Renderer Render target
+	@param cx X-axis component of the point where the line will rotate
+	@param cy Y-axis component of the point where the line will rotate
+	@param sw Screen width
+	@param sh Screen height
+	@param angle Angle that the line is aimed at ( in radians )
+*/
 inline void gfxDrawEndlessLine(SDL_Renderer* renderer, int cx, int cy, int sw, int sh, float angle)
 {
 	if (maxLength == 0)

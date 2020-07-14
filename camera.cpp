@@ -20,6 +20,7 @@ void Camera::assignTarget(std::shared_ptr<GameObject> t)
 
 void Camera::update(float dt)
 {
+	// Without a target we should not attempt to update the camera's position
 	if (target == nullptr)
 	{
 		std::cout << INLINE_COLOR_FONT("Camera::WARNING::Attempting to update camera without a target, with the current system this is dangerous", FONT_YELLOW) << std::endl;

@@ -8,6 +8,8 @@
 			The goal is to create a base for SNES-styled driving games, starting with basic rendering and forward-only progression
 				As far as design goes, I'm being a bit loose, so expect rash sudden changes, sorry
 				If this project gets a large enough code-base going, I will start working on experimental branches before major revisions are made
+
+	Acknowledgements to Jake Gordon's fantastic article on creating an old-school pseudo-3d racing game in Javascript https://codeincomplete.com/articles/javascript-racer/
 */
 
 #include <iostream>
@@ -44,7 +46,54 @@ bool isRunning = true;
 void update();
 void draw();
 
-void initialize();
+void initialize()
+{
+	/*
+		Handle SDL Initilizations and Setup
+	*/
+	// Initialize SDL
+	if (SDL_Init(SDL_INIT_EVERYTHING) == 0)
+		std::cout << INLINE_COLOR_FONT("Subsystems Initialized", FONT_GREEN) << std::endl;
+	else
+	{
+		WRITE_CONSOLE_ERROR("Subsystems", "FATAL", "FAILED to initialize");
+		isRunning = false;
+	}
+
+	// Create window instance
+	window = SDL_CreateWindow("Driving Game - Hunter Werenskjold", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_SHOWN);
+	if (window)
+		std::cout << INLINE_COLOR_FONT("Window Created", FONT_GREEN) << std::endl;
+	else
+	{
+		WRITE_CONSOLE_ERROR("Window", "FATAL", "Failed to be created");
+		isRunning = false;
+	}
+
+	// Create renderer instance
+	renderer = SDL_CreateRenderer(window, -1, 0);
+	if (renderer)
+		std::cout << INLINE_COLOR_FONT("Renderer Created", FONT_GREEN) << std::endl;
+	else
+	{
+		WRITE_CONSOLE_ERROR("Renderer", "FATAL", "Failed to be created");
+		isRunning = false;
+	}
+
+	/*
+		Initializes all required objects to start the game/load starting scene
+	*/
+
+	road = std::make_shared<Road>();
+
+	mainCamera = std::make_shared<Camera>(rn::vector3f(0, CAMERA_HEIGHT, 0), CAMERA_FOV);
+
+	// The camera parameter of the Player class constructor is actually not that necessary and should be decoupled in the future
+	player = std::make_shared<Player>(rn::vector3f(0), *mainCamera);
+
+	// Assigns the target for the main camera to follow
+	mainCamera->assignTarget(player);
+}
 
 int main(int args, char* argv[])
 {
@@ -54,6 +103,7 @@ int main(int args, char* argv[])
 	SDL_RenderClear(renderer);
 
 	SDL_Event e;
+	// Game loop	
 	while (isRunning)
 	{
 		while (SDL_PollEvent(&e))
@@ -80,17 +130,12 @@ int main(int args, char* argv[])
 	return 0;
 }
 
-// Check clipping of objects and segments
-void checkClipping()
-{
-	// Clip Objects
-}
-
+// All logic pertaining to per-frame updates are called from here
+//	To-do: I would like to add a staggered update as well to handle things that do not need to occur every frame
 void update()
 {
-
-	// Object Clipping
-	checkClipping();
+	// Object culling
+	// To-do: Culling of unnecessary/unused/destroyed/etc. objects should occur here
 
 	road->update(DELTA_TIME);
 
@@ -100,12 +145,24 @@ void update()
 	
 }
 
+// All logic pertaining to drawing is contained or called from here
 void draw()
 {
-	rn::project(player->getDualVector(), mainCamera->v, mainCamera->depth, WINDOW_WIDTH, WINDOW_HEIGHT, ROAD_WIDTH_DEFAULT);
+	// Object Clipping
+	// To-do: Clipping should occur here to prevent unnecessary draws
 	
+	/*
+		The rendering order goes as follows:
+			Road
+			Scene objects ( farthest to closest ) [ Note: Ordering is required ]
+			Player
+			Foreground Elements
+			U.I.
+	*/
+
 	road->draw(renderer, *mainCamera);
 
+	// This is currently rough testing code for creating a dot that sits on the track
 	rn::dualVector floatingDot(rn::vector3f(0, 0, 1000));
 	rn::project(floatingDot, mainCamera->v, mainCamera->depth, WINDOW_WIDTH, WINDOW_HEIGHT, ROAD_WIDTH_DEFAULT);
 
@@ -114,48 +171,12 @@ void draw()
 		gfxDrawBrenCircle(renderer, floatingDot.sV.x, floatingDot.sV.y, 10, true);
 	}
 
+	// Draws the player
+	rn::project(player->getDualVector(), mainCamera->v, mainCamera->depth, WINDOW_WIDTH, WINDOW_HEIGHT, ROAD_WIDTH_DEFAULT);
 	player->draw(renderer, *mainCamera);
 
+	// Swaps the buffer and clears the render target for the next draw step
 	SDL_RenderPresent(renderer);
 	SDL_SetRenderDrawColor(renderer, DEFAULT_R, DEFAULT_G, DEFAULT_B, 255);
 	SDL_RenderClear(renderer);
-}
-
-void initialize()
-{
-	// Create Window and Begin
-	if (SDL_Init(SDL_INIT_EVERYTHING) == 0)
-		std::cout << INLINE_COLOR_FONT("Subsystems Initialized", FONT_GREEN) << std::endl;
-	else
-	{
-		WRITE_CONSOLE_ERROR("Subsystems", "FATAL", "FAILED to initialize");
-		isRunning = false;
-	}
-
-	window = SDL_CreateWindow("Driving Game - Hunter Werenskjold", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_SHOWN);
-	if (window)
-		std::cout << INLINE_COLOR_FONT("Window Created", FONT_GREEN) << std::endl;
-	else
-	{
-		WRITE_CONSOLE_ERROR("Window", "FATAL", "Failed to be created");
-		isRunning = false;
-	}
-
-	renderer = SDL_CreateRenderer(window, -1, 0);
-
-	if (renderer)
-		std::cout << INLINE_COLOR_FONT("Renderer Created", FONT_GREEN) << std::endl;
-	else
-	{
-		WRITE_CONSOLE_ERROR("Renderer", "FATAL", "Failed to be created");
-		isRunning = false;
-	}
-
-	road = std::make_shared<Road>();
-
-	mainCamera = std::make_shared<Camera>(rn::vector3f(0, CAMERA_HEIGHT, 0), CAMERA_FOV);
-
-	player = std::make_shared<Player>(rn::vector3f(0), *mainCamera);
-
-	mainCamera->assignTarget(player);
 }

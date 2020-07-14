@@ -20,6 +20,7 @@ void Player::update(float dt)
 
 void Player::draw(SDL_Renderer* renderer, const Camera& c)
 {
+	// Currently we just draw the player as a good ole-fashioned circle
 	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 	gfxDrawBrenCircle(renderer, dV.sV.x, dV.sV.y, 20.f, true);
 }
