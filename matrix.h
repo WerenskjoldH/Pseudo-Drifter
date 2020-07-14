@@ -1,6 +1,13 @@
 #ifndef MATRIX_H
 #define MATRIX_H
 
+/*
+	File: matrix.h
+	Description: This file is from my Ronin Math Library, it implements matrixes that can be used alongside the Ronin vector class
+
+	https://github.com/WerenskjoldH/Ronin-Math-Libary
+*/
+
 #include <math.h>
 #include <iostream>
 

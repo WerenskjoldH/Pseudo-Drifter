@@ -1,6 +1,13 @@
 #ifndef VECTOR_H
 #define VECTOR_H
 
+/*
+	File: vector.h
+	Description: This file is from my Ronin Math Library, it has been slightly extended to support "dual vectors" and projections form world to screen space.
+
+	https://github.com/WerenskjoldH/Ronin-Math-Libary
+*/
+
 #include <math.h>
 #include <iostream>
 
