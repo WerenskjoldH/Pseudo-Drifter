@@ -1,4 +1,5 @@
-#pragma once
+#ifndef ROAD_H
+#define ROAD_H
 
 // That's some ambiguity right there, thank goodness for namespaces!
 #include <vector>
@@ -37,3 +38,5 @@ public:
 	void update(float dt);
 	void draw(SDL_Renderer* renderer, const Camera& c);
 };
+
+#endif

@@ -1,4 +1,6 @@
-#pragma once
+#ifndef PLAYER_H
+#define PLAYER_H
+
 #include "gameObject.h"
 
 class Camera;
@@ -27,3 +29,5 @@ public:
 	void draw(SDL_Renderer* renderer, const Camera& camera) override;
 
 };
+
+#endif

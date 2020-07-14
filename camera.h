@@ -1,9 +1,13 @@
-#pragma once
+#ifndef CAMERA_H
+#define CAMERA_H
 
 #include "vector.h"
 
 // Being able to support multiple cameras in the scene and deciding which one to render with is a powerful thing
 //	Mirrors are a great example of this
+
+// The Camera class SHOULD hold its own renderer ( or a reference ) and handle all drawing to allow easy additions of post-fx
+//	However, this will likely come at a later time
 
 class GameObject;
 
@@ -30,3 +34,5 @@ public:
 	void update(float dt);
 
 };
+
+#endif

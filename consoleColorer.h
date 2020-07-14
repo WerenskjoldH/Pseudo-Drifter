@@ -1,5 +1,5 @@
-#ifndef CONSOLE_ConsoleColorizer_H
-#define CONSOLE_ConsoleColorizer_H
+#ifndef CONSOLE_COLORIZER_H
+#define CONSOLE_COLORIZER_H
 
 // If you don't want to use the ColorText class, then disable it here
 #define USING_COLOR_TEXT true
@@ -134,4 +134,4 @@ inline std::ostream& operator<<(std::ostream& os, const ColorText& ct)
 
 #endif
 
-#endif // !CONSOLE_ConsoleColorizer_H
+#endif

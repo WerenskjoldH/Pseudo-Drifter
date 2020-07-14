@@ -1,4 +1,5 @@
-#pragma once
+#ifndef DEFINITIONS_H
+#define DEFINITIONS_H
 
 #define WINDOW_WIDTH 400
 #define WINDOW_HEIGHT 400
@@ -20,3 +21,5 @@
 #define PERCENT_RUNNER 0.10f
 
 #define ROAD_WIDTH_DEFAULT 200.f
+
+#endif

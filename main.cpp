@@ -4,7 +4,10 @@
 	Date: 10/1/19
 
 	Description:
-		Out of curiosity, I wanted to see what would go into making a psuedo-3D real-time renderer for a driving game.
+		This was a small project from 2019 that I have recently (July, 2020) decided to return to.
+			The goal is to create a base for SNES-styled driving games, starting with basic rendering and forward-only progression
+				As far as design goes, I'm being a bit loose, so expect rash sudden changes, sorry
+				If this project gets a large enough code-base going, I will start working on experimental branches before major revisions are made
 */
 
 #include <iostream>
