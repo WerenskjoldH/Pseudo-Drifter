@@ -1,5 +1,6 @@
 #include "road.h"
 #include "definitions.h"
+#include "camera.h"
 
 Road::Road()
 {
@@ -32,28 +33,28 @@ void Road::update(float dt)
 	//segmentGeneration()
 }
 
-void Road::draw(SDL_Renderer* renderer, rn::vector3f camera, float depth)
+void Road::draw(SDL_Renderer* renderer, const Camera& camera)
 {
-	segmentGeneration(camera);
+	segmentGeneration(camera.v);
 
 	// Draw each segment
 	for (int i = 0; i < SEGMENTS; i++)
 	{
-		drawSegment(renderer, *roadSegments[i], camera, depth);
+		drawSegment(renderer, *roadSegments[i], camera);
 	}
 }
 
 
-void Road::drawSegment(SDL_Renderer* renderer, Segment& s, const rn::vector3f& camera, float depth)
+void Road::drawSegment(SDL_Renderer* renderer, Segment& s, const Camera& camera)
 {
 		int rows = 0;
 
-		rn::project(s.bottomLeft, camera, depth, WINDOW_WIDTH, WINDOW_HEIGHT, ROAD_WIDTH_DEFAULT);
-		rn::project(s.bottomRight, camera, depth, WINDOW_WIDTH, WINDOW_HEIGHT, ROAD_WIDTH_DEFAULT);
-		rn::project(s.topLeft, camera, depth, WINDOW_WIDTH, WINDOW_HEIGHT, ROAD_WIDTH_DEFAULT);
-		rn::project(s.topRight, camera, depth, WINDOW_WIDTH, WINDOW_HEIGHT, ROAD_WIDTH_DEFAULT);
+		rn::project(s.bottomLeft, camera.v, camera.depth, WINDOW_WIDTH, WINDOW_HEIGHT, ROAD_WIDTH_DEFAULT);
+		rn::project(s.bottomRight, camera.v, camera.depth, WINDOW_WIDTH, WINDOW_HEIGHT, ROAD_WIDTH_DEFAULT);
+		rn::project(s.topLeft, camera.v, camera.depth, WINDOW_WIDTH, WINDOW_HEIGHT, ROAD_WIDTH_DEFAULT);
+		rn::project(s.topRight, camera.v, camera.depth, WINDOW_WIDTH, WINDOW_HEIGHT, ROAD_WIDTH_DEFAULT);
 
-		if (s.topLeft.wV.z - camera.z - (depth * camera.y) < 0)
+		if (s.topLeft.wV.z - camera.v.z - (camera.depth * camera.v.y) < 0)
 			return;
 
 		int bottomRow, topRow;

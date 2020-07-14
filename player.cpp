@@ -1,11 +1,12 @@
 #include "player.h"
 #include "gfxHelper.h"
 #include "definitions.h"
+#include "camera.h"
 
-Player::Player(rn::vector3f startingPosition, float cameraDepth, float cameraHeight) : GameObject()
+Player::Player(rn::vector3f startingPosition, const Camera& camera) : GameObject()
 {
-	positionDV.wV = startingPosition;
-	dV.wV.z = cameraDepth * cameraHeight;
+	dV.wV = startingPosition;
+	dV.wV.z = camera.depth * camera.v.y;
 }
 
 Player::~Player()
@@ -17,7 +18,7 @@ void Player::update(float dt)
 	input();
 }
 
-void Player::draw(SDL_Renderer* renderer, rn::vector3f cameraPosition, float depth)
+void Player::draw(SDL_Renderer* renderer, const Camera& c)
 {
 	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 	gfxDrawBrenCircle(renderer, dV.sV.x, dV.sV.y, 20.f, true);

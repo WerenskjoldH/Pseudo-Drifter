@@ -3,15 +3,17 @@
 #include <SDL/SDL.h>
 #include "vector.h"
 
+class Camera;
+
 class GameObject
 {
 protected:
-	rn::dualVector positionDV;
+	rn::dualVector dV;
 public:
 	virtual ~GameObject();
 
 	rn::dualVector& getDualVector();
 
 	virtual void update(float dt) = 0;
-	virtual void draw(SDL_Renderer* renderer, rn::vector3f cameraPosition, float depth) = 0;
+	virtual void draw(SDL_Renderer* renderer, const Camera& camera) = 0;
 };

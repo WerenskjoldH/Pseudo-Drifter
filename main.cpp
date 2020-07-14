@@ -16,19 +16,9 @@
 
 #include "road.h"
 #include "player.h"
+#include "camera.h"
 
 #include "definitions.h"
-
-enum ObjectShape
-{
-	CIRCLE,
-	SQUARE
-};
-
-static struct Camera {
-	rn::vector3f v;
-	float depth;
-} camera;
 
 SDL_Window* window;
 SDL_Renderer* renderer;
@@ -36,6 +26,7 @@ SDL_Renderer* renderer;
 std::shared_ptr<Road> road;
 
 std::shared_ptr<Player> player;
+std::shared_ptr<Camera> mainCamera;
 
 std::vector<std::shared_ptr<Segment>> segments;
 int segmentsPassed = 0;
@@ -47,7 +38,6 @@ clock_t cycleTimeStart = 0.f, cycleTimeEnd = 0.f;
 
 bool isRunning = true;
 
-void updateInputs(SDL_Event& e);
 void update();
 void draw();
 
@@ -103,26 +93,25 @@ void update()
 
 	player->update(DELTA_TIME);
 
-	camera.v.z = player->dV.wV.z - camera.depth * camera.v.y;
-	camera.v.x = player->dV.wV.x;
+	mainCamera->update(DELTA_TIME);
 	
 }
 
 void draw()
 {
-	rn::project(player->dV, camera.v, camera.depth, WINDOW_WIDTH, WINDOW_HEIGHT, ROAD_WIDTH_DEFAULT);
+	rn::project(player->getDualVector(), mainCamera->v, mainCamera->depth, WINDOW_WIDTH, WINDOW_HEIGHT, ROAD_WIDTH_DEFAULT);
 	
-	road->draw(renderer, camera.v, camera.depth);
+	road->draw(renderer, *mainCamera);
 
 	rn::dualVector floatingDot(rn::vector3f(0, 0, 1000));
-	rn::project(floatingDot, camera.v, camera.depth, WINDOW_WIDTH, WINDOW_HEIGHT, ROAD_WIDTH_DEFAULT);
+	rn::project(floatingDot, mainCamera->v, mainCamera->depth, WINDOW_WIDTH, WINDOW_HEIGHT, ROAD_WIDTH_DEFAULT);
 
-	if (floatingDot.wV.z > player->dV.wV.z) {
+	if (floatingDot.wV.z > player->getDualVector().wV.z) {
 		SDL_SetRenderDrawColor(renderer, 144, 255, 144, 255);
 		gfxDrawBrenCircle(renderer, floatingDot.sV.x, floatingDot.sV.y, 10, true);
 	}
 
-	player->draw(renderer, camera.v, camera.depth);
+	player->draw(renderer, *mainCamera);
 
 	SDL_RenderPresent(renderer);
 	SDL_SetRenderDrawColor(renderer, DEFAULT_R, DEFAULT_G, DEFAULT_B, 255);
@@ -161,10 +150,9 @@ void initialize()
 
 	road = std::make_shared<Road>();
 
-	camera.v.x = 0;
-	camera.v.y = CAMERA_HEIGHT;
-	camera.v.z = 0;
-	camera.depth = 1.f / tanf((CAMERA_FOV / 2.f) * PI / 180.f);
+	mainCamera = std::make_shared<Camera>(rn::vector3f(0, CAMERA_HEIGHT, 0), CAMERA_FOV);
 
-	player = std::make_shared<Player>(rn::vector3f(0), camera.depth, camera.v.y);
+	player = std::make_shared<Player>(rn::vector3f(0), *mainCamera);
+
+	mainCamera->assignTarget(player);
 }

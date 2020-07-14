@@ -6,6 +6,8 @@
 
 #include <SDL/SDL.h>
 
+class Camera;
+
 struct Segment {
 	// We will track the top-left points and the center of the top ( for simplicity sake )
 	rn::dualVector topRight, bottomRight, topLeft, bottomLeft;
@@ -24,7 +26,7 @@ private:
 public:
 
 private:
-	void drawSegment(SDL_Renderer* renderer, Segment& s, const rn::vector3f& camera, float depth);
+	void drawSegment(SDL_Renderer* renderer, Segment& s, const Camera& camera);
 	void segmentGeneration(rn::vector3f camera);
 	int getSegmentIndexFromDist(float dist);
 
@@ -33,5 +35,5 @@ public:
 	~Road();
 
 	void update(float dt);
-	void draw(SDL_Renderer* renderer, rn::vector3f camera, float depth);
+	void draw(SDL_Renderer* renderer, const Camera& c);
 };
