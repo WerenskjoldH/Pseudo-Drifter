@@ -13,6 +13,8 @@ class Camera
 {
 public:
 	rn::vector3f v;
+
+	// Distance behind object
 	float depth;
 
 	std::shared_ptr<GameObject> target;

@@ -121,7 +121,7 @@ public:
 	{}
 };
 
-std::ostream& operator<<(std::ostream& os, const ColorText& ct)
+inline std::ostream& operator<<(std::ostream& os, const ColorText& ct)
 {
 	ConsoleColorizer::getInstance().temporaryTextColor(ct.color);
 
