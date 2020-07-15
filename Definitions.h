@@ -5,6 +5,7 @@
 	Description: This file contains most all global definitions, external variables, etc.
 */
 
+/// Defines
 #define WINDOW_WIDTH 400
 #define WINDOW_HEIGHT 400
 #define WINDOW_PIXELS WINDOW_HEIGHT * WINDOW_WIDTH
@@ -27,8 +28,6 @@
 #define ROAD_WIDTH_DEFAULT 200.f
 
 /// Global Variables
-
-// Originates from Main
 class InputManager;
 extern std::unique_ptr<InputManager> G_INPUT;
 

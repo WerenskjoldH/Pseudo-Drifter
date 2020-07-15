@@ -29,9 +29,10 @@ class Camera;
 
 // Segment of road, these are individually rendered to create a continuous road
 struct Segment {
-	// We will track the top-left points and the center of the top ( for simplicity sake )
+	// Vertices of road segment
 	rn::dualVector topRight, bottomRight, topLeft, bottomLeft;
 	float color = 0;
+	// Two different types of road segment at the second, this will be expanded in the future
 	bool type = 0;
 
 	Segment(rn::vector3f tr, rn::vector3f tl, rn::vector3f br, rn::vector3f bl, float c, bool t) : topRight{ tr }, topLeft{ tl }, bottomRight{ br }, bottomLeft{ bl }, color{ c }, type{ t }
@@ -41,7 +42,6 @@ struct Segment {
 class Road
 {
 private:
-	// Contains all active road segments
 	std::vector<std::shared_ptr<Segment>> roadSegments;
 
 public:
