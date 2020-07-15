@@ -7,7 +7,7 @@
 	This class is ONLY to be inherited from, the pure functions should ensure that
 
 	To-do:
-		* That getDualVector() function is looking mighty unsafe, it was implemented to ease the refactoring process from the earliest version of the engine to what it is now
+		* Right now, nothing
 */
 
 #include <SDL.h>
@@ -17,16 +17,12 @@ class Camera;
 
 class GameObject
 {
-protected:
-	// Dual vector used for storing world space and projected screen-space of a point/vertex
+public:
+	// Dual vector used for storing world space and projected screen-space of the game object
+	// Getters/Setters proved pointless so far for this
 	rn::dualVector dV;
 
-public:
 	virtual ~GameObject();
-
-	// @return Gets a direct reference to the game objects dual vector
-	rn::dualVector& GetDualVector();
-
 	// @param dt Delta time
 	virtual void Update(float dt) = 0;
 

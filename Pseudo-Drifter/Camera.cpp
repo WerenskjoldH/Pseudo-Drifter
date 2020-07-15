@@ -27,6 +27,6 @@ void Camera::Update(float dt)
 		return;
 	}
 
-	v.z = target->GetDualVector().wV.z - depth * v.y;
-	v.x = target->GetDualVector().wV.x;
+	v.z = target->dV.wV.z - depth * v.y;
+	v.x = target->dV.wV.x;
 }

@@ -146,18 +146,18 @@ void Engine::Draw()
 	rn::project(floatingDotTwoCenter, mainCamera->v, mainCamera->depth, WINDOW_WIDTH, WINDOW_HEIGHT, ROAD_WIDTH_DEFAULT);
 	rn::project(floatingDotTwoTop, mainCamera->v, mainCamera->depth, WINDOW_WIDTH, WINDOW_HEIGHT, ROAD_WIDTH_DEFAULT);
 
-	if (floatingDotCenter.wV.z > player->GetDualVector().wV.z) {
+	if (floatingDotCenter.wV.z > player->dV.wV.z) {
 		SDL_SetRenderDrawColor(renderer, 144, 255, 144, 255);
 		GfxDrawBrenCircle(renderer, floatingDotCenter.sV.x, floatingDotCenter.sV.y, (floatingDotTop.sV - floatingDotCenter.sV).magnitude(), true);
 	}
 
-	if (floatingDotTwoCenter.wV.z > player->GetDualVector().wV.z) {
+	if (floatingDotTwoCenter.wV.z > player->dV.wV.z) {
 		SDL_SetRenderDrawColor(renderer, 144, 255, 144, 255);
 		GfxDrawBrenCircle(renderer, floatingDotTwoCenter.sV.x, floatingDotTwoCenter.sV.y, (floatingDotTwoTop.sV - floatingDotTwoCenter.sV).magnitude(), true);
 	}
 
 	// Draws the player
-	rn::project(player->GetDualVector(), mainCamera->v, mainCamera->depth, WINDOW_WIDTH, WINDOW_HEIGHT, ROAD_WIDTH_DEFAULT);
+	rn::project(player->dV, mainCamera->v, mainCamera->depth, WINDOW_WIDTH, WINDOW_HEIGHT, ROAD_WIDTH_DEFAULT);
 	player->Draw(renderer, *mainCamera);
 
 	// Swaps the buffer and clears the render target for the next draw step
