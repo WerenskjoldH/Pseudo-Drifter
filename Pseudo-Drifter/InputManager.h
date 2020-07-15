@@ -12,7 +12,7 @@
 		* This is a tad rigid, i.e. what if we want controller support?
 */
 
-#include <SDL/SDL.h>
+#include <SDL.h>
 #include <unordered_map>
 
 struct Key

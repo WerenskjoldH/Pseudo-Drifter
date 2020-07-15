@@ -9,7 +9,7 @@
 		* Support for rendering sprites
 */
 
-#include <SDL/SDL.h>
+#include <SDL.h>
 
 static int maxLength = 0;
 

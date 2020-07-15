@@ -16,7 +16,7 @@
 #include "Definitions.h"
 #include "InputManager.h"
 
-#include <SDL/SDL.h>
+#include <SDL.h>
 #include <memory>
 #include <vector>
 

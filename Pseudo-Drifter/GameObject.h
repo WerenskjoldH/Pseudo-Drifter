@@ -10,7 +10,7 @@
 		* That getDualVector() function is looking mighty unsafe, it was implemented to ease the refactoring process from the earliest version of the engine to what it is now
 */
 
-#include <SDL/SDL.h>
+#include <SDL.h>
 #include "Ronin-Math-Library/vector.h"
 
 class Camera;
