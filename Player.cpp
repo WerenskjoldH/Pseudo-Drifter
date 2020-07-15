@@ -1,8 +1,8 @@
-#include "player.h"
-#include "gfxHelper.h"
-#include "definitions.h"
-#include "camera.h"
-#include "inputManager.h"
+#include "Player.h"
+#include "GfxHelper.h"
+#include "Definitions.h"
+#include "Camera.h"
+#include "InputManager.h"
 
 Player::Player(rn::vector3f startingPosition, const Camera& camera) : GameObject()
 {

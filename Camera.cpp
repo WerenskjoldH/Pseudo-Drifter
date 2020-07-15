@@ -1,6 +1,6 @@
-#include "camera.h"
-#include "gameObject.h"
-#include "consoleColorer.h"
+#include "Camera.h"
+#include "GameObject.h"
+#include "ConsoleColorer.h"
 
 Camera::Camera(rn::vector3f position, float cameraFOV)
 {

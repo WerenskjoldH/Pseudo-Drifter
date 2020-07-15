@@ -18,7 +18,7 @@
 		* Different tracking modes for camera instances with targets
 */
 
-#include "vector.h"
+#include "Ronin-Math-Library/vector.h"
 
 // Being able to support multiple cameras in the scene and deciding which one to render with is a powerful thing
 //	Mirrors are a great example of this

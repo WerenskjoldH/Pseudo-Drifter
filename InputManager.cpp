@@ -1,5 +1,5 @@
-#include "inputManager.h"
-#include "consoleColorer.h"
+#include "InputManager.h"
+#include "ConsoleColorer.h"
 #include <iostream>
 
 bool InputManager::ValidKey(SDL_Keycode k)

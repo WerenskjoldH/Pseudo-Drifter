@@ -13,7 +13,7 @@
 		* Create player sprite support with turning sprites
 */
 
-#include "gameObject.h"
+#include "GameObject.h"
 
 class Camera;
 

@@ -16,16 +16,13 @@
 #include <vector>
 #include <time.h>
 
-#include "gfxHelper.h"
-#include "consoleColorer.h"
-
-#include "inputManager.h"
-
-#include "road.h"
-#include "player.h"
-#include "camera.h"
-
-#include "definitions.h"
+#include "GfxHelper.h"
+#include "ConsoleColorer.h"
+#include "InputManager.h"
+#include "Road.h"
+#include "Player.h"
+#include "Camera.h"
+#include "Definitions.h"
 
 SDL_Window* window;
 SDL_Renderer* renderer;
