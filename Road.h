@@ -47,6 +47,9 @@ public:
 	Road();
 	~Road();
 
+	
+	void Initialize();
+
 	// @param dt Delta time
 	void Update(float dt);
 

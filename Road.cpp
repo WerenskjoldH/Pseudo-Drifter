@@ -5,9 +5,15 @@
 
 Road::Road()
 {
-	/*
-		Initialize the starting road segments from closest to farthest
-	*/
+	Initialize();
+}
+
+Road::~Road()
+{}
+
+void Road::Initialize()
+{
+	// Initialize the starting road segments from closest to farthest
 	for (int i = 0; i <= SEGMENTS; i++)
 	{
 		Uint8 color = 200;
@@ -27,14 +33,8 @@ Road::Road()
 	}
 }
 
-Road::~Road()
-{
-}
-
 void Road::Update(float dt)
-{
-
-}
+{}
 
 void Road::Draw(SDL_Renderer* renderer, const Camera& camera)
 {
