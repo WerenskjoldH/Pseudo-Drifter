@@ -14,7 +14,7 @@
 #define PI  3.14159265359
 
 // Don't use this standalone
-inline void gfxDrawCircle(SDL_Renderer* renderer, int cx, int cy, int x, int y)
+inline void GfxDrawCircle(SDL_Renderer* renderer, int cx, int cy, int x, int y)
 {
 	SDL_RenderDrawPoint(renderer, cx + x, cy + y);
 	SDL_RenderDrawPoint(renderer, cx - x, cy + y);
@@ -27,7 +27,7 @@ inline void gfxDrawCircle(SDL_Renderer* renderer, int cx, int cy, int x, int y)
 }
 
 // Don't use this standalone
-inline void gfxDrawFilledCircle(SDL_Renderer* renderer, int cx, int cy, int x, int y)
+inline void GfxDrawFilledCircle(SDL_Renderer* renderer, int cx, int cy, int x, int y)
 {
 	for (int i = -x; i < x; i++)
 	{
@@ -50,7 +50,7 @@ inline void gfxDrawFilledCircle(SDL_Renderer* renderer, int cx, int cy, int x, i
 	@oaram radius Radius of the circle
 	@param filled If the circle should be filled or not
 */
-inline void gfxDrawBrenCircle(SDL_Renderer* renderer, int cx, int cy, int radius, bool filled)
+inline void GfxDrawBrenCircle(SDL_Renderer* renderer, int cx, int cy, int radius, bool filled)
 {
 	if (radius <= 1)
 	{
@@ -61,9 +61,9 @@ inline void gfxDrawBrenCircle(SDL_Renderer* renderer, int cx, int cy, int radius
 	int x = 0, y = radius, d = 3 - (2 * radius);
 
 	if (!filled)
-		gfxDrawCircle(renderer, cx, cy, x, y);
+		GfxDrawCircle(renderer, cx, cy, x, y);
 	else
-		gfxDrawFilledCircle(renderer, cx, cy, x, y);
+		GfxDrawFilledCircle(renderer, cx, cy, x, y);
 
 	while (x <= y)
 	{
@@ -79,9 +79,9 @@ inline void gfxDrawBrenCircle(SDL_Renderer* renderer, int cx, int cy, int radius
 
 
 		if (!filled)
-			gfxDrawCircle(renderer, cx, cy, x, y);
+			GfxDrawCircle(renderer, cx, cy, x, y);
 		else
-			gfxDrawFilledCircle(renderer, cx, cy, x, y);
+			GfxDrawFilledCircle(renderer, cx, cy, x, y);
 	}
 }
 
@@ -94,7 +94,7 @@ static int maxLength = 0;
 	@param sh Screen height
 	@param angle Angle that the line is aimed at ( in radians )
 */
-inline void gfxDrawEndlessLine(SDL_Renderer* renderer, int cx, int cy, int sw, int sh, float angle)
+inline void GfxDrawEndlessLine(SDL_Renderer* renderer, int cx, int cy, int sw, int sh, float angle)
 {
 	if (maxLength == 0)
 	{
@@ -108,7 +108,7 @@ inline void gfxDrawEndlessLine(SDL_Renderer* renderer, int cx, int cy, int sw, i
 	SDL_RenderDrawLine(renderer, cx + posX, cy + posY, cx - posX, cy - posY);
 }
 
-inline void gfxDrawHorizontalLine(SDL_Renderer* renderer, int x, int y, int width)
+inline void GfxDrawHorizontalLine(SDL_Renderer* renderer, int x, int y, int width)
 {
 	SDL_RenderDrawLine(renderer, x - width, y, x + width, y);
 }

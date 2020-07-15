@@ -13,12 +13,12 @@ Camera::~Camera()
 {
 }
 
-void Camera::assignTarget(std::shared_ptr<GameObject> t)
+void Camera::AssignTarget(std::shared_ptr<GameObject> t)
 {
 	target = t;
 }
 
-void Camera::update(float dt)
+void Camera::Update(float dt)
 {
 	// Without a target we should not attempt to update the camera's position
 	if (target == nullptr)
@@ -27,6 +27,6 @@ void Camera::update(float dt)
 		return;
 	}
 
-	v.z = target->getDualVector().wV.z - depth * v.y;
-	v.x = target->getDualVector().wV.x;
+	v.z = target->GetDualVector().wV.z - depth * v.y;
+	v.x = target->GetDualVector().wV.x;
 }

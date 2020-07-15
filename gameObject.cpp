@@ -4,7 +4,7 @@ GameObject::~GameObject()
 {
 }
 
-rn::dualVector& GameObject::getDualVector()
+rn::dualVector& GameObject::GetDualVector()
 {
 	return dV;
 }

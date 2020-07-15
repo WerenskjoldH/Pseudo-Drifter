@@ -31,26 +31,26 @@ Road::~Road()
 {
 }
 
-void Road::update(float dt)
+void Road::Update(float dt)
 {
 
 }
 
-void Road::draw(SDL_Renderer* renderer, const Camera& camera)
+void Road::Draw(SDL_Renderer* renderer, const Camera& camera)
 {
 	// Determine if we need to cull a road segment and place a new segment at the farthest distance
 	// I'm still not certain if this should be a part of the draw step or not since it will also potentially affect game logic
-	segmentGeneration(camera.v);
+	SegmentGeneration(camera.v);
 
 	// Draw each segment
 	for (int i = 0; i < SEGMENTS; i++)
 	{
-		drawSegment(renderer, *roadSegments[i], camera);
+		DrawSegment(renderer, *roadSegments[i], camera);
 	}
 }
 
 
-void Road::drawSegment(SDL_Renderer* renderer, Segment& s, const Camera& camera)
+void Road::DrawSegment(SDL_Renderer* renderer, Segment& s, const Camera& camera)
 {
 		int rows = 0;
 
@@ -117,12 +117,12 @@ void Road::drawSegment(SDL_Renderer* renderer, Segment& s, const Camera& camera)
 		}
 }
 
-int Road::getSegmentIndexFromDist(float dist)
+int Road::GetSegmentIndexFromDist(float dist)
 {
 	return (int)floor(int(dist / (float)SEGMENT_WIDTH)) % roadSegments.size();
 }
 
-void Road::segmentGeneration(rn::vector3f camera)
+void Road::SegmentGeneration(rn::vector3f camera)
 {
 	/// Check the closest segment for clipping. If we should clip it, then we will remove the pointer from the vector alter the data accordingly and push it back on
 	/// This should allow us to render only what we need, store only what we need, etc.

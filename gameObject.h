@@ -24,15 +24,15 @@ public:
 	virtual ~GameObject();
 
 	// @return Gets a direct reference to the game objects dual vector
-	rn::dualVector& getDualVector();
+	rn::dualVector& GetDualVector();
 
 	// @param dt Delta time
-	virtual void update(float dt) = 0;
+	virtual void Update(float dt) = 0;
 
 	/*
 		@param renderer Target renderer this object will draw to
 		@param camera Camera this object will project to for rendering
 	*/
-	virtual void draw(SDL_Renderer* renderer, const Camera& camera) = 0;
+	virtual void Draw(SDL_Renderer* renderer, const Camera& camera) = 0;
 };
 #endif

@@ -47,8 +47,8 @@ clock_t cycleTimeStart = 0.f, cycleTimeEnd = 0.f;
 
 bool isRunning = true;
 
-void update();
-void draw();
+void Update();
+void Draw();
 
 void initialize()
 {
@@ -96,16 +96,16 @@ void initialize()
 	player = std::make_shared<Player>(rn::vector3f(0), *mainCamera);
 
 	// Assigns the target for the main camera to follow
-	mainCamera->assignTarget(player);
+	mainCamera->AssignTarget(player);
 
 	/*
 		Initializes all keybinds
 	*/
 
-	input.bindKey(SDLK_w);
-	input.bindKey(SDLK_a);
-	input.bindKey(SDLK_s);
-	input.bindKey(SDLK_d);
+	input.BindKey(SDLK_w);
+	input.BindKey(SDLK_a);
+	input.BindKey(SDLK_s);
+	input.BindKey(SDLK_d);
 }
 
 int main(int args, char* argv[])
@@ -126,16 +126,14 @@ int main(int args, char* argv[])
 				isRunning = false;
 			}
 
-			input.updateInput(e);
-
-			player->updateInputs(e);
+			input.UpdateInput(e);
 		}
 
-		update();
+		Update();
 
-		draw();
+		Draw();
 
-		input.updatePrevInput();
+		input.UpdatePrevInput();
 		iTime += DELTA_TIME;
 	}
 
@@ -148,21 +146,21 @@ int main(int args, char* argv[])
 
 // All logic pertaining to per-frame updates are called from here
 //	To-do: I would like to add a staggered update as well to handle things that do not need to occur every frame
-void update()
+void Update()
 {
 	// Object culling
 	// To-do: Culling of unnecessary/unused/destroyed/etc. objects should occur here
 
-	road->update(DELTA_TIME);
+	road->Update(DELTA_TIME);
 
-	player->update(DELTA_TIME);
+	player->Update(DELTA_TIME);
 
-	mainCamera->update(DELTA_TIME);
+	mainCamera->Update(DELTA_TIME);
 	
 }
 
 // All logic pertaining to drawing is contained or called from here
-void draw()
+void Draw()
 {
 	// Object Clipping
 	// To-do: Clipping should occur here to prevent unnecessary draws
@@ -176,7 +174,7 @@ void draw()
 			U.I.
 	*/
 
-	road->draw(renderer, *mainCamera);
+	road->Draw(renderer, *mainCamera);
 
 	// This is currently rough testing code for creating dots that sit on the track
 	rn::dualVector floatingDotCenter(rn::vector3f(0, 0, 1000));
@@ -189,19 +187,19 @@ void draw()
 	rn::project(floatingDotTwoCenter, mainCamera->v, mainCamera->depth, WINDOW_WIDTH, WINDOW_HEIGHT, ROAD_WIDTH_DEFAULT);
 	rn::project(floatingDotTwoTop, mainCamera->v, mainCamera->depth, WINDOW_WIDTH, WINDOW_HEIGHT, ROAD_WIDTH_DEFAULT);
 
-	if (floatingDotCenter.wV.z > player->getDualVector().wV.z) {
+	if (floatingDotCenter.wV.z > player->GetDualVector().wV.z) {
 		SDL_SetRenderDrawColor(renderer, 144, 255, 144, 255);
-		gfxDrawBrenCircle(renderer, floatingDotCenter.sV.x, floatingDotCenter.sV.y, (floatingDotTop.sV - floatingDotCenter.sV).magnitude(), true);
+		GfxDrawBrenCircle(renderer, floatingDotCenter.sV.x, floatingDotCenter.sV.y, (floatingDotTop.sV - floatingDotCenter.sV).magnitude(), true);
 	}
 
-	if (floatingDotTwoCenter.wV.z > player->getDualVector().wV.z) {
+	if (floatingDotTwoCenter.wV.z > player->GetDualVector().wV.z) {
 		SDL_SetRenderDrawColor(renderer, 144, 255, 144, 255);
-		gfxDrawBrenCircle(renderer, floatingDotTwoCenter.sV.x, floatingDotTwoCenter.sV.y, (floatingDotTwoTop.sV - floatingDotTwoCenter.sV).magnitude(), true);
+		GfxDrawBrenCircle(renderer, floatingDotTwoCenter.sV.x, floatingDotTwoCenter.sV.y, (floatingDotTwoTop.sV - floatingDotTwoCenter.sV).magnitude(), true);
 	}
 
 	// Draws the player
-	rn::project(player->getDualVector(), mainCamera->v, mainCamera->depth, WINDOW_WIDTH, WINDOW_HEIGHT, ROAD_WIDTH_DEFAULT);
-	player->draw(renderer, *mainCamera);
+	rn::project(player->GetDualVector(), mainCamera->v, mainCamera->depth, WINDOW_WIDTH, WINDOW_HEIGHT, ROAD_WIDTH_DEFAULT);
+	player->Draw(renderer, *mainCamera);
 
 	// Swaps the buffer and clears the render target for the next draw step
 	SDL_RenderPresent(renderer);

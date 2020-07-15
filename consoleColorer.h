@@ -12,10 +12,10 @@
 // If you don't want to use the ColorText class, then disable it here
 #define USING_COLOR_TEXT true
 
-#define SET_FONT_COLOR(c) ConsoleColorizer::getInstance().setTextColor(c)
-#define RESET_CONSOLE_FONT() ConsoleColorizer::getInstance().setTextColor(15)
-#define WRITE_CONSOLE_ERROR(errorLocation, errorLevel, errorDescription) ConsoleColorizer::getInstance().writeError(errorLocation, errorLevel, errorDescription)
-#define WRITE_CONSOLE_WARNING(warningLocation, warningLevel, warningDescription) ConsoleColorizer::getInstance().writeWarning(warningLocation, warningLevel, warningDescription)
+#define SET_FONT_COLOR(c) ConsoleColorizer::getInstance().SetTextColor(c)
+#define RESET_CONSOLE_FONT() ConsoleColorizer::getInstance().SetTextColor(15)
+#define WRITE_CONSOLE_ERROR(errorLocation, errorLevel, errorDescription) ConsoleColorizer::getInstance().WriteError(errorLocation, errorLevel, errorDescription)
+#define WRITE_CONSOLE_WARNING(warningLocation, warningLevel, warningDescription) ConsoleColorizer::getInstance().WriteWarning(warningLocation, warningLevel, warningDescription)
 
 #if USING_COLOR_TEXT
 #define INLINE_COLOR_FONT(s, c) ColorText(s, c)
@@ -69,7 +69,7 @@ public:
 		14	-	YELLOW
 		15	-	WHITE
 	*/
-	void setTextColor(int c = 15)
+	void SetTextColor(int c = 15)
 	{
 		if (c < 0 || c > 15)
 		{
@@ -81,7 +81,7 @@ public:
 	}
 
 	// This function is primarily used for setting inline color changes that don't change the current stored color
-	void temporaryTextColor(int c = 15)
+	void TemporaryTextColor(int c = 15)
 	{
 		if (c < 0 || c > 15)
 		{
@@ -92,19 +92,19 @@ public:
 	}
 
 	// If you have set a temporary color, you will need to call this after to restore the console to the prior color
-	void resetTemporaryTextColor()
+	void ResetTemporaryTextColor()
 	{
 		SetConsoleTextAttribute(consoleHandler, currentColor);
 	}
 
-	void writeError(const char* errorLocation, const char* errorLevel, const char* errorDescription)
+	void WriteError(const char* errorLocation, const char* errorLevel, const char* errorDescription)
 	{
 		SetConsoleTextAttribute(consoleHandler, FONT_RED);
 		printf("ERROR::%s::%s::%s\n", errorLocation, errorLevel, errorDescription);
 		SET_FONT_COLOR(currentColor);
 	}
 
-	void writeWarning(const char* warningLocation, const char* warningLevel, const char* warningDescription)
+	void WriteWarning(const char* warningLocation, const char* warningLevel, const char* warningDescription)
 	{
 		SetConsoleTextAttribute(consoleHandler, FONT_YELLOW);
 		printf("WARNING::%s::%s::%s\n", warningLocation, warningLevel, warningDescription);
@@ -139,11 +139,11 @@ public:
 
 inline std::ostream& operator<<(std::ostream& os, const ColorText& ct)
 {
-	ConsoleColorizer::getInstance().temporaryTextColor(ct.color);
+	ConsoleColorizer::getInstance().TemporaryTextColor(ct.color);
 
 	std::cout << ct.text;
 
-	ConsoleColorizer::getInstance().resetTemporaryTextColor();
+	ConsoleColorizer::getInstance().ResetTemporaryTextColor();
 
 	return os;
 }

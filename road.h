@@ -52,31 +52,31 @@ private:
 		@param s Segment to be drawn
 		@param camera Camera to be projected to
 	*/
-	void drawSegment(SDL_Renderer* renderer, Segment& s, const Camera& camera);
+	void DrawSegment(SDL_Renderer* renderer, Segment& s, const Camera& camera);
 	
 	/* Generates new segments when passed segments are culled
 		@param camera Camera that is rendered to
 	*/
-	void segmentGeneration(rn::vector3f camera);
+	void SegmentGeneration(rn::vector3f camera);
 
 	/*
 		Gets segment index in vector, from the road distance from start
 		@param z-axis distance
 	*/
-	int getSegmentIndexFromDist(float dist);
+	int GetSegmentIndexFromDist(float dist);
 
 public:
 	Road();
 	~Road();
 
 	// @param dt Delta time
-	void update(float dt);
+	void Update(float dt);
 
 	/*
 		@param renderer Target renderer this object will draw to
 		@param camera Camera this object will project to for rendering
 	*/
-	void draw(SDL_Renderer* renderer, const Camera& c);
+	void Draw(SDL_Renderer* renderer, const Camera& c);
 };
 
 #endif

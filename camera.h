@@ -53,10 +53,10 @@ public:
 	/* Assigns the target of the camera
 		@param t Game object being assigned as the camera target
 	*/
-	void assignTarget(std::shared_ptr<GameObject> t);
+	void AssignTarget(std::shared_ptr<GameObject> t);
 
 	//@param dt Delta time
-	void update(float dt);
+	void Update(float dt);
 
 };
 
