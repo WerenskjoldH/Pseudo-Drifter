@@ -70,8 +70,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>C:\My Content\Programming\Libraries\C++\includes;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\My Content\Programming\Libraries\C++\libs\x64;$(LibraryPath)</LibraryPath>
+    <IncludePath>..\SDL2-2.0.12\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\My Content\Programming\Libraries\C++\libs\x64;..\SDL2-2.0.12\lib\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IncludePath>C:\My Content\Programming\Libraries\C++\includes;$(IncludePath)</IncludePath>
