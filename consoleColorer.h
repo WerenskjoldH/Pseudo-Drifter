@@ -15,6 +15,7 @@
 #define SET_FONT_COLOR(c) ConsoleColorizer::getInstance().setTextColor(c)
 #define RESET_CONSOLE_FONT() ConsoleColorizer::getInstance().setTextColor(15)
 #define WRITE_CONSOLE_ERROR(errorLocation, errorLevel, errorDescription) ConsoleColorizer::getInstance().writeError(errorLocation, errorLevel, errorDescription)
+#define WRITE_CONSOLE_WARNING(warningLocation, warningLevel, warningDescription) ConsoleColorizer::getInstance().writeWarning(warningLocation, warningLevel, warningDescription)
 
 #if USING_COLOR_TEXT
 #define INLINE_COLOR_FONT(s, c) ColorText(s, c)
@@ -98,8 +99,15 @@ public:
 
 	void writeError(const char* errorLocation, const char* errorLevel, const char* errorDescription)
 	{
-		SetConsoleTextAttribute(consoleHandler, 4);
+		SetConsoleTextAttribute(consoleHandler, FONT_RED);
 		printf("ERROR::%s::%s::%s\n", errorLocation, errorLevel, errorDescription);
+		SET_FONT_COLOR(currentColor);
+	}
+
+	void writeWarning(const char* warningLocation, const char* warningLevel, const char* warningDescription)
+	{
+		SetConsoleTextAttribute(consoleHandler, FONT_YELLOW);
+		printf("WARNING::%s::%s::%s\n", warningLocation, warningLevel, warningDescription);
 		SET_FONT_COLOR(currentColor);
 	}
 

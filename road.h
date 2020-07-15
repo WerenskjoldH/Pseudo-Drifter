@@ -19,11 +19,11 @@
 	Link: https://codeincomplete.com/articles/javascript-racer/
 */
 
-// That's some ambiguity right there, thank goodness for namespaces!
 #include <vector>
-#include "vector.h"
 
 #include <SDL/SDL.h>
+
+#include "vector.h"
 
 class Camera;
 

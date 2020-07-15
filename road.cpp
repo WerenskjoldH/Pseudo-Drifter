@@ -1,6 +1,7 @@
 #include "road.h"
 #include "definitions.h"
 #include "camera.h"
+#include "vector.h"
 
 Road::Road()
 {

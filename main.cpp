@@ -19,6 +19,8 @@
 #include "gfxHelper.h"
 #include "consoleColorer.h"
 
+#include "inputManager.h"
+
 #include "road.h"
 #include "player.h"
 #include "camera.h"
@@ -32,6 +34,8 @@ std::shared_ptr<Road> road;
 
 std::shared_ptr<Player> player;
 std::shared_ptr<Camera> mainCamera;
+
+InputManager input;
 
 std::vector<std::shared_ptr<Segment>> segments;
 int segmentsPassed = 0;
@@ -93,6 +97,15 @@ void initialize()
 
 	// Assigns the target for the main camera to follow
 	mainCamera->assignTarget(player);
+
+	/*
+		Initializes all keybinds
+	*/
+
+	input.bindKey(SDLK_w);
+	input.bindKey(SDLK_a);
+	input.bindKey(SDLK_s);
+	input.bindKey(SDLK_d);
 }
 
 int main(int args, char* argv[])
@@ -113,6 +126,8 @@ int main(int args, char* argv[])
 				isRunning = false;
 			}
 
+			input.updateInput(e);
+
 			player->updateInputs(e);
 		}
 
@@ -120,6 +135,7 @@ int main(int args, char* argv[])
 
 		draw();
 
+		input.updatePrevInput();
 		iTime += DELTA_TIME;
 	}
 

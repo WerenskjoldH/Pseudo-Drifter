@@ -2,7 +2,7 @@
 #define DEFINITIONS_H
 
 /*
-	Description: This file contains most all project wide definitions for simple editing
+	Description: This file contains most all global definitions, external variables, etc.
 */
 
 #define WINDOW_WIDTH 400
@@ -25,5 +25,8 @@
 #define PERCENT_RUNNER 0.10f
 
 #define ROAD_WIDTH_DEFAULT 200.f
+
+class InputManager;
+extern InputManager input;
 
 #endif

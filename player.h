@@ -30,7 +30,7 @@ private:
 	// std::shared_ptr<World> world
 	// std::shared_ptr<Camera> camera;
 	// Handles player input
-	void input();
+	void movement();
 
 public:
 	Player(rn::vector3f startingPosition, const Camera& camera);
