@@ -19,13 +19,6 @@ void Player::Update(float dt)
 	Movement();
 }
 
-void Player::Draw(SDL_Renderer* renderer, const Camera& c)
-{
-	// Currently we just draw the player as a good ole-fashioned circle
-	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-	GfxDrawBrenCircle(renderer, dV.sV.x, dV.sV.y, 20.f, true);
-}
-
 void Player::Movement()
 {
 	if (G_INPUT->KeyDown(SDLK_w) && vertSpeed < MAX_SPEED_VERTICAL)
@@ -50,4 +43,11 @@ void Player::Movement()
 		dV.wV.x += 0.1f;
 
 	dV.wV.z += vertSpeed;
+}
+
+void Player::Draw(SDL_Renderer* renderer, const Camera& c)
+{
+	// Currently we just draw the player as a good ole-fashioned circle
+	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+	GfxDrawBrenCircle(renderer, dV.sV.x, dV.sV.y, 20.f, true);
 }

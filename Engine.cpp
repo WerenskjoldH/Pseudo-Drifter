@@ -22,41 +22,6 @@ Engine::~Engine()
 	SDL_Quit();
 }
 
-bool Engine::CheckRunning()
-{
-	return false;
-}
-
-int Engine::Begin()
-{
-	SDL_SetRenderDrawColor(renderer, DEFAULT_R, DEFAULT_G, DEFAULT_B, 255);
-	SDL_RenderClear(renderer);
-
-	SDL_Event e;
-	// Game loop	
-	while (isRunning)
-	{
-		while (SDL_PollEvent(&e))
-		{
-			if (e.type == SDL_QUIT || (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_ESCAPE))
-			{
-				isRunning = false;
-			}
-
-			G_INPUT->UpdateInput(e);
-		}
-
-		Update();
-
-		Draw();
-
-		G_INPUT->UpdatePrevInput();
-		totalTimeSinceStart += DELTA_TIME;
-	}
-
-	return 0;
-}
-
 void Engine::Initialize()
 {
 	InitSDL();
@@ -102,7 +67,7 @@ void Engine::InitInput()
 	inputManager.BindKey(SDLK_s);
 	inputManager.BindKey(SDLK_d);
 	inputManager.BindKey(SDLK_SPACE);
-	
+
 	G_INPUT = &inputManager;
 }
 
@@ -117,6 +82,41 @@ void Engine::InitWorld()
 
 	// Assigns the target for the main camera to follow
 	mainCamera->AssignTarget(player);
+}
+
+bool Engine::CheckRunning()
+{
+	return false;
+}
+
+int Engine::Begin()
+{
+	SDL_SetRenderDrawColor(renderer, DEFAULT_R, DEFAULT_G, DEFAULT_B, 255);
+	SDL_RenderClear(renderer);
+
+	SDL_Event e;
+	// Game loop	
+	while (isRunning)
+	{
+		while (SDL_PollEvent(&e))
+		{
+			if (e.type == SDL_QUIT || (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_ESCAPE))
+			{
+				isRunning = false;
+			}
+
+			G_INPUT->UpdateInput(e);
+		}
+
+		Update();
+
+		Draw();
+
+		G_INPUT->UpdatePrevInput();
+		totalTimeSinceStart += DELTA_TIME;
+	}
+
+	return 0;
 }
 
 void Engine::Update()
