@@ -26,7 +26,10 @@
 
 #define ROAD_WIDTH_DEFAULT 200.f
 
+/// Global Variables
+
+// Originates from Main
 class InputManager;
-extern InputManager input;
+extern std::unique_ptr<InputManager> G_INPUT;
 
 #endif

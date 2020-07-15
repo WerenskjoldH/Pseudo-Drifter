@@ -32,7 +32,7 @@ std::shared_ptr<Road> road;
 std::shared_ptr<Player> player;
 std::shared_ptr<Camera> mainCamera;
 
-InputManager input;
+std::unique_ptr<InputManager> G_INPUT;
 
 std::vector<std::shared_ptr<Segment>> segments;
 int segmentsPassed = 0;
@@ -52,6 +52,7 @@ void initialize()
 	/*
 		Handle SDL Initilizations and Setup
 	*/
+
 	// Initialize SDL
 	if (SDL_Init(SDL_INIT_EVERYTHING) == 0)
 		std::cout << INLINE_COLOR_FONT("Subsystems Initialized", FONT_GREEN) << std::endl;
@@ -99,11 +100,13 @@ void initialize()
 		Initializes all keybinds
 	*/
 
-	input.BindKey(SDLK_w);
-	input.BindKey(SDLK_a);
-	input.BindKey(SDLK_s);
-	input.BindKey(SDLK_d);
-	input.BindKey(SDLK_SPACE);
+	G_INPUT = std::make_unique<InputManager>();
+
+	G_INPUT->BindKey(SDLK_w);
+	G_INPUT->BindKey(SDLK_a);
+	G_INPUT->BindKey(SDLK_s);
+	G_INPUT->BindKey(SDLK_d);
+	G_INPUT->BindKey(SDLK_SPACE);
 }
 
 int main(int args, char* argv[])
@@ -124,14 +127,14 @@ int main(int args, char* argv[])
 				isRunning = false;
 			}
 
-			input.UpdateInput(e);
+			G_INPUT->UpdateInput(e);
 		}
 
 		Update();
 
 		Draw();
 
-		input.UpdatePrevInput();
+		G_INPUT->UpdatePrevInput();
 		iTime += DELTA_TIME;
 	}
 
