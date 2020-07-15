@@ -30,6 +30,9 @@ private:
 	bool ValidKey(SDL_Keycode k);
 
 public:
+	InputManager();
+	~InputManager();
+
 	void BindKey(SDL_Keycode k);
 
 	bool KeyDown(SDL_Keycode k);

@@ -29,6 +29,6 @@
 
 /// Global Variables
 class InputManager;
-extern std::unique_ptr<InputManager> G_INPUT;
+extern InputManager* G_INPUT;
 
 #endif

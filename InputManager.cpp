@@ -7,6 +7,14 @@ bool InputManager::ValidKey(SDL_Keycode k)
     return boundKeys.count(k);
 }
 
+InputManager::InputManager()
+{
+}
+
+InputManager::~InputManager()
+{
+}
+
 void InputManager::BindKey(SDL_Keycode k)
 {
     boundKeys.insert(std::make_pair(k, Key()));
