@@ -103,6 +103,7 @@ void initialize()
 	input.BindKey(SDLK_a);
 	input.BindKey(SDLK_s);
 	input.BindKey(SDLK_d);
+	input.BindKey(SDLK_SPACE);
 }
 
 int main(int args, char* argv[])
