@@ -22,9 +22,6 @@ class Player : public GameObject
 private:
 	float vertSpeed = 0;
 
-	// Input is temporarily included in the player class
-	bool keys[5]; // 0 - up, 1 - left, 2 - down, 3 - right, 4 - space
-
 private:
 	// These could likely be kept to being passed only as direct pointers might just cause tons of unnecessary coupling
 	// std::shared_ptr<World> world
