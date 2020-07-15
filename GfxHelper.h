@@ -11,7 +11,7 @@
 
 #include <SDL/SDL.h>
 
-#define PI  3.14159265359
+static int maxLength = 0;
 
 // Don't use this standalone
 inline void GfxDrawCircle(SDL_Renderer* renderer, int cx, int cy, int x, int y)
@@ -85,7 +85,6 @@ inline void GfxDrawBrenCircle(SDL_Renderer* renderer, int cx, int cy, int radius
 	}
 }
 
-static int maxLength = 0;
 /* Draws an "endless" line to the renderer
 	@param SDL_Renderer Render target
 	@param cx X-axis component of the point where the line will rotate

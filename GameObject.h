@@ -20,6 +20,7 @@ class GameObject
 protected:
 	// Dual vector used for storing world space and projected screen-space of a point/vertex
 	rn::dualVector dV;
+
 public:
 	virtual ~GameObject();
 

@@ -41,31 +41,9 @@ struct Segment {
 
 class Road
 {
-private:
+public:
 	std::vector<std::shared_ptr<Segment>> roadSegments;
 
-public:
-
-private:
-	/*	Draws a given segment
-		@param renderer Renderer the segment is drawn to
-		@param s Segment to be drawn
-		@param camera Camera to be projected to
-	*/
-	void DrawSegment(SDL_Renderer* renderer, Segment& s, const Camera& camera);
-	
-	/* Generates new segments when passed segments are culled
-		@param camera Camera that is rendered to
-	*/
-	void SegmentGeneration(rn::vector3f camera);
-
-	/*
-		Gets segment index in vector, from the road distance from start
-		@param z-axis distance
-	*/
-	int GetSegmentIndexFromDist(float dist);
-
-public:
 	Road();
 	~Road();
 
@@ -77,6 +55,24 @@ public:
 		@param camera Camera this object will project to for rendering
 	*/
 	void Draw(SDL_Renderer* renderer, const Camera& c);
+
+private:
+	/*	Generates new segments when passed segments are culled
+		@param camera Camera that is rendered to
+	*/
+	void SegmentGeneration(rn::vector3f camera);
+
+	/*	Draws a given segment
+		@param renderer Renderer the segment is drawn to
+		@param s Segment to be drawn
+		@param camera Camera to be projected to
+	*/
+	void DrawSegment(SDL_Renderer* renderer, Segment& s, const Camera& camera);
+
+	/*	Gets segment index in vector, from the road distance from start
+		@param z-axis distance
+	*/
+	int GetSegmentIndexFromDist(float dist);
 };
 
 #endif

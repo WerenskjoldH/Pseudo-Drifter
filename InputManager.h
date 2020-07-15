@@ -23,27 +23,27 @@ struct Key
 
 class InputManager
 {
-private:
-	// Since unordered maps don't allow duplicate keys, we can check existance in near linear time!
-	std::unordered_map<SDL_Keycode, Key> boundKeys;
-	
-	bool ValidKey(SDL_Keycode k);
-
 public:
 	InputManager();
 	~InputManager();
-
-	void BindKey(SDL_Keycode k);
-
-	bool KeyDown(SDL_Keycode k);
-	bool KeyUp(SDL_Keycode k);
-	bool KeyPress(SDL_Keycode k);
-	bool KeyRelease(SDL_Keycode k);
 
 	// This must go inside the game loop's inner event loop
 	void UpdateInput(SDL_Event& e);
 	// Update at end of frame, this is used for deltas
 	void UpdatePrevInput();
+
+	void BindKey(SDL_Keycode k);
+
+	bool KeyUp(SDL_Keycode k);
+	bool KeyDown(SDL_Keycode k);
+	bool KeyPress(SDL_Keycode k);
+	bool KeyRelease(SDL_Keycode k);
+
+private:
+	// Since unordered maps don't allow duplicate keys, we can check existance in near linear time!
+	std::unordered_map<SDL_Keycode, Key> boundKeys;
+
+	bool ValidKey(SDL_Keycode k);
 };
 
 #endif
