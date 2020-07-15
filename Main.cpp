@@ -62,7 +62,7 @@ void initialize()
 	}
 
 	// Create window instance
-	window = SDL_CreateWindow("Driving Game - Hunter Werenskjold", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_SHOWN);
+	window = SDL_CreateWindow("Pseudo-Driver - Hunter Werenskjold", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_SHOWN);
 	if (window)
 		std::cout << INLINE_COLOR_FONT("Window Created", FONT_GREEN) << std::endl;
 	else
