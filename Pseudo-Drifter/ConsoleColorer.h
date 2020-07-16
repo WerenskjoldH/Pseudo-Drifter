@@ -31,7 +31,10 @@
 #define FONT_YELLOW		14
 #define FONT_WHITE		15
 
+// This should reduce slim down Windows.h and improve compile time
+#define WIN32_LEAN_AND_MEAN
 #include <Windows.h>
+
 #include <iostream>
 
 class ConsoleColorizer
