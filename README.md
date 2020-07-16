@@ -26,7 +26,7 @@ It should be noted that, at this time, this project is **limited to the Windows 
 
 <h3 align="center">Development: Ongoing</h3>
 
-Right this second, it is the second day of writing this engine. That is, completely rebuilding it from the weekend project it once was into more of an actual foundation for a game to be built on. This approach means there will be far less visual appeal in these early stages. \*Hence the basic ole gif up above. **:(\***
+Right this second, it is the second day of writing this engine. That is, completely rebuilding it from the weekend project it once was into more of an actual foundation for a game to be built on. This approach means there will be far less visual appeal in these early stages. Hence the basic ole gif up above. **:(**
 
 But this does also mean that the code building up the project will get far more clean as time goes on instead of building into a rats nest of unrefactored and uncommented **sludge**. Instead, in each iteration I intend to target a specific feature or indiviual system and improve/refactor with intentions to not side-track into _"Well if..." territory_.
 
