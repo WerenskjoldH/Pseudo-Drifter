@@ -18,7 +18,7 @@ At the time or writing, this project is under heavy restructuring and developmen
 
 If you are intending to branch, clone, or repurpose this project please [contact me](rilliden@gmail.com) and I will start working on branches instead of developing directly on the master.
 
-It should be noted that, at this time, this project is **limited to the Windows OS**, and targeting Windows 10, due to the current version of my [_Windows Console Text Colorizer_](https://github.com/WerenskjoldH/Windows-Font-Colorizer) header-only "library" is not being developed with varying operating systems in mind. This is something I intend to address very soon - it's not a hard change, I just have a lot of other things I'm working on in parallel right now and that's not at the top of the list.
+It should be noted that, at this time, this project is **limited to the Windows OS** - targeting Windows 10. This is due to the current version of my [_Windows Console Text Colorizer_](https://github.com/WerenskjoldH/Windows-Font-Colorizer) header-only "library" not being developed with other operating systems in mind. I intend to address this, it's not a hard change, but I just have a lot of other things I'm working on in parallel right now and that's not at the top of the list.
 
 ---
 
@@ -39,7 +39,7 @@ If you are curious of what's to come, check out the "To-do:"s at the top of of m
 ## Setup
 
 1. Clone this repository
-2. [Download the SDL2 development libraries](https://www.libsdl.org/download-2.0.php) and place the _SDL 2.0.12_ folder in the repository's main directory.
+2. [Download the x64 SDL2 development libraries](https://www.libsdl.org/download-2.0.php) and place the _SDL 2.0.12_ folder in the repository's main directory.
 3. Build the project, and ensure _SDL2.dll_ is in the same directory as the executable.
 
 ---
