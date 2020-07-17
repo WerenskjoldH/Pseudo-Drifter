@@ -60,8 +60,17 @@ void Road::DrawSegment(SDL_Renderer* renderer, Segment& s, const Camera& camera)
 		rn::project(s.topLeft, camera.v, camera.depth, WINDOW_WIDTH, WINDOW_HEIGHT, ROAD_WIDTH_DEFAULT);
 		rn::project(s.topRight, camera.v, camera.depth, WINDOW_WIDTH, WINDOW_HEIGHT, ROAD_WIDTH_DEFAULT);
 
-		// If the top left vertex of the segment is located behind the camera, then we don't draw it
-		//	To-do: We should have something similar for segments that are barely visible to the camera/past far culling plane
+		/*
+			Distance-Based Draw Culling
+
+			To-do: 
+				- Camera-based culling
+					+ This Should be reliant on camera properties, not internally stored variables, that will come with the Camera revamp
+		*/
+
+		if (s.bottomLeft.wV.z - camera.v.z > cullingDistance)
+			return;
+
 		if (s.topLeft.wV.z - camera.v.z - (camera.depth * camera.v.y) < 0)
 			return;
 

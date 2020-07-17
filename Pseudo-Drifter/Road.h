@@ -1,6 +1,8 @@
 #ifndef ROAD_H
 #define ROAD_H
 
+#include "Definitions.h"
+
 /*
 	Description: This file contains all declarations pertaining to the road class and its dependencies.
 
@@ -60,6 +62,9 @@ public:
 	void Draw(SDL_Renderer* renderer, const Camera& c);
 
 private:
+	// This should be dependent on the camera and not stored inside the road class, however that change will come later
+	float cullingDistance = DEFAULT_DISTANCE_CULLING;
+
 	/*	Generates new segments when passed segments are culled
 		@param camera Camera that is rendered to
 	*/

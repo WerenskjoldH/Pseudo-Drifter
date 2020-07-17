@@ -27,6 +27,8 @@
 
 #define ROAD_WIDTH_DEFAULT 200.f
 
+#define DEFAULT_DISTANCE_CULLING 750.f
+
 /// Global Variables
 class InputManager;
 extern InputManager* G_INPUT;
