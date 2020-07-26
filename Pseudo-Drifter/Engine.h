@@ -39,6 +39,7 @@ public:
 
 private:
 	bool isRunning = true;
+	
 	float totalTimeSinceStart = 0;
 
 	std::shared_ptr<Road> road;

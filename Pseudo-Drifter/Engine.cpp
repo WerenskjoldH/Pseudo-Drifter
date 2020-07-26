@@ -94,10 +94,16 @@ int Engine::Begin()
 	SDL_SetRenderDrawColor(renderer, DEFAULT_R, DEFAULT_G, DEFAULT_B, 255);
 	SDL_RenderClear(renderer);
 
+	// Do note that SDL_GetTicks() returns milliseconds, not centiseconds
+	float frameStartTime = SDL_GetTicks() * .01f;
+	float timeAccumulator = 0.f;
+
 	SDL_Event e;
 	// Game loop	
 	while (isRunning)
 	{
+		const float currentTime = SDL_GetTicks() * .01f;
+
 		while (SDL_PollEvent(&e))
 		{
 			if (e.type == SDL_QUIT || (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_ESCAPE))
@@ -108,12 +114,29 @@ int Engine::Begin()
 			G_INPUT->UpdateInput(e);
 		}
 
-		Update();
+		/*
+			Deterministic Timesteps
+			To-Do:
+				- Split Logic & "Physics"/Fixed Updates
+				- Interpolated Drawing(?)
+		*/
+
+		timeAccumulator += (currentTime - frameStartTime);
+		frameStartTime = currentTime;
+
+		// If there is some heavy slow-downs due to hefty calculations or the likes, this will prevent the accumulator growing too large to maintain a good frame-rate
+		timeAccumulator = (timeAccumulator > MAX_DELTA_TIME) ? MAX_DELTA_TIME : timeAccumulator;
+
+		while (timeAccumulator >= DELTA_TIME) 
+		{
+			Update();
+			timeAccumulator -= DELTA_TIME;
+			totalTimeSinceStart += DELTA_TIME;
+		}
 
 		Draw();
 
 		G_INPUT->UpdatePrevInput();
-		totalTimeSinceStart += DELTA_TIME;
 	}
 
 	return 0;
