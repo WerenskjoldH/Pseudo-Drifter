@@ -20,7 +20,7 @@ class Camera;
 class Player : public GameObject
 {
 public:
-	float vertSpeed = 0;
+	rn::vector3f velocity;
 
 	Player(rn::vector3f startingPosition, const Camera& camera);
 	~Player();
@@ -35,9 +35,6 @@ public:
 	void Draw(SDL_Renderer* renderer, const Camera& camera) override;
 
 private:
-	// These could likely be kept to being passed only as direct pointers might just cause tons of unnecessary coupling
-	// std::shared_ptr<World> world
-	// std::shared_ptr<Camera> camera;
 	// Handles player input & movement
 	void Movement();
 };

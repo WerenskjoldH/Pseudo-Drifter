@@ -4,6 +4,11 @@
 #include "Camera.h"
 #include "InputManager.h"
 
+static float FloatClamp(float v, float min, float max)
+{
+	return (v >= min && v <= max) ? v : (v < min) ? min : max;
+}
+
 Player::Player(rn::vector3f startingPosition, const Camera& camera) : GameObject()
 {
 	dV.wV = startingPosition;
@@ -21,28 +26,31 @@ void Player::Update(float dt)
 
 void Player::Movement()
 {
-	if (G_INPUT->KeyDown(SDLK_w) && vertSpeed < MAX_SPEED_VERTICAL)
+	if (G_INPUT->KeyDown(SDLK_w))
 	{
-		vertSpeed += 0.001f;
+		velocity.z += 0.001f;
 	}
 
-	if (G_INPUT->KeyDown(SDLK_s) && vertSpeed > -1 * MAX_SPEED_VERTICAL)
+	if (G_INPUT->KeyDown(SDLK_s))
 	{
-		vertSpeed -= 0.001f;
+		velocity.z -= 0.001f;
 	}
 
-	vertSpeed -= 0.0001f;
-
-	if (vertSpeed < 0)
-		vertSpeed = 0;
+	velocity.z = FloatClamp(velocity.z, -1 * MAX_SPEED_VERTICAL, MAX_SPEED_VERTICAL);
 
 	if (G_INPUT->KeyDown(SDLK_a) == 1)
-		dV.wV.x -= 0.1f;
+		velocity.x -= 0.1f;
 
 	if (G_INPUT->KeyDown(SDLK_d))
-		dV.wV.x += 0.1f;
+		velocity.x += 0.1f;
 
-	dV.wV.z += vertSpeed;
+	rn::vector3f opposingForce;
+	opposingForce += VEHICLE_DRAG_FORCE * velocity * velocity.magnitude();
+	opposingForce += VEHICLE_ROLLING_RESISTANCE * velocity;
+
+	dV.wV += velocity + opposingForce;
+
+	velocity.x = 0;
 }
 
 void Player::Draw(SDL_Renderer* renderer, const Camera& c)
