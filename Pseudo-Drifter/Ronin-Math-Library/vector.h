@@ -121,7 +121,7 @@ namespace rn
 		// Returns scalar(dot) product
 		vector3f operator*(const real s) const
 		{
-			return vector3f(s * x, s * y, x * z);
+			return vector3f(s * x, s * y, s * z);
 		}
 
 #ifdef MATRIX_H
@@ -205,6 +205,8 @@ namespace rn
 		// Calculate the unit vector and return result
 		vector3f unit() const
 		{
+			if (this->magnitude() == 0)
+				return vector3f(0);
 			return vector3f(*this / this->magnitude());
 		}
 
