@@ -11,14 +11,21 @@
 */
 
 #include <string>
+#include <string_view>
 
 class Component
 {
+protected:
+	std::string componentName;
+
 public: 
 	Component(const std::string iComponentName);
 
-protected:
-	std::string componentName;
+	const std::string& GetComponentName() const
+	{
+		return componentName;
+	}
+
 };
 
 #endif
