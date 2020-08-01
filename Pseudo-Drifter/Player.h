@@ -36,7 +36,7 @@ public:
 
 private:
 	// Handles player input & movement
-	void Movement();
+	void Movement(float dt);
 };
 
 #endif

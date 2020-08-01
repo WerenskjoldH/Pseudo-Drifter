@@ -21,36 +21,31 @@ Player::~Player()
 
 void Player::Update(float dt)
 {
-	Movement();
+	Movement(dt);
 }
 
-void Player::Movement()
+void Player::Movement(float dt)
 {
+	rn::vector3f carHeading(0);
+
 	if (G_INPUT->KeyDown(SDLK_w))
-	{
-		velocity.z += 0.001f;
-	}
+		carHeading.z = 1;
 
 	if (G_INPUT->KeyDown(SDLK_s))
-	{
-		velocity.z -= 0.001f;
-	}
+		carHeading.z = -1;
 
-	velocity.z = FloatClamp(velocity.z, -1 * MAX_SPEED_VERTICAL, MAX_SPEED_VERTICAL);
-
-	if (G_INPUT->KeyDown(SDLK_a) == 1)
-		velocity.x -= 0.1f;
+	if (G_INPUT->KeyDown(SDLK_a))
+		carHeading.x = -1;
 
 	if (G_INPUT->KeyDown(SDLK_d))
-		velocity.x += 0.1f;
+		carHeading.x = 1;
 
-	rn::vector3f opposingForce;
-	opposingForce += VEHICLE_DRAG_FORCE * velocity * velocity.magnitude();
-	opposingForce += VEHICLE_ROLLING_RESISTANCE * velocity;
+	carHeading.normalize();
 
-	dV.wV += velocity + opposingForce;
+ 	velocity += (VEHICLE_ENGINE_FORCE * carHeading) * dt;
+	velocity = carHeading * FloatClamp(velocity.magnitude(), 0, MAX_SPEED_VERTICAL);
 
-	velocity.x = 0;
+	dV.wV += velocity * dt;
 }
 
 void Player::Draw(SDL_Renderer* renderer, const Camera& c)
