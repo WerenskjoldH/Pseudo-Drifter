@@ -16,6 +16,12 @@
     <Filter Include="Header Files\Ronin Math Library">
       <UniqueIdentifier>{f38b780c-067c-42d1-96f1-66821a09ec0e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Entity-Component System">
+      <UniqueIdentifier>{7309f054-2c74-403a-927b-a298727e2cd9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Entity-Component System">
+      <UniqueIdentifier>{ba68b515-fdaa-479f-b2b6-b0f1a6116994}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp">
@@ -39,17 +45,14 @@
     <ClCompile Include="Engine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Entity.cpp">
+      <Filter>Source Files\Entity-Component System</Filter>
+    </ClCompile>
+    <ClCompile Include="DrawableComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="vector.h">
-      <Filter>Header Files\Ronin Math Library</Filter>
-    </ClInclude>
-    <ClInclude Include="precision.h">
-      <Filter>Header Files\Ronin Math Library</Filter>
-    </ClInclude>
-    <ClInclude Include="matrix.h">
-      <Filter>Header Files\Ronin Math Library</Filter>
-    </ClInclude>
     <ClInclude Include="Camera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -76,6 +79,24 @@
     </ClInclude>
     <ClInclude Include="Engine.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity.h">
+      <Filter>Header Files\Entity-Component System</Filter>
+    </ClInclude>
+    <ClInclude Include="Component.h">
+      <Filter>Header Files\Entity-Component System</Filter>
+    </ClInclude>
+    <ClInclude Include="DrawableComponent.h">
+      <Filter>Header Files\Entity-Component System</Filter>
+    </ClInclude>
+    <ClInclude Include="Ronin-Math-Library\precision.h">
+      <Filter>Header Files\Ronin Math Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Ronin-Math-Library\vector.h">
+      <Filter>Header Files\Ronin Math Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Ronin-Math-Library\matrix.h">
+      <Filter>Header Files\Ronin Math Library</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
