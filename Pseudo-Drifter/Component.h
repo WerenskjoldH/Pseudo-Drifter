@@ -4,12 +4,21 @@
 /*
 	Description: This file contains the component class declaration
 
-	This class is a safe-guard for future extension of functionality and grouping, however, for now it just exists to be inherited from
+	This class really just has to store a string containing the name of the component
+
+	To-do:
+		* I really think an std::string_view could do the strick and save resources
 */
+
+#include <string>
 
 class Component
 {
+public: 
+	Component(const std::string iComponentName);
 
+protected:
+	std::string componentName;
 };
 
 #endif
