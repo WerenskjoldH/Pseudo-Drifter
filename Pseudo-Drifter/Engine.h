@@ -17,7 +17,7 @@
 #include "InputManager.h"
 
 #include "EntityManager.h"
-#include "DrawableSystem.h"
+#include "SystemManager.h"
 
 #include <SDL.h>
 #include <memory>
@@ -50,7 +50,7 @@ private:
 	std::shared_ptr<Camera> mainCamera;
 
 	EntityManager entityManager;
-	DrawableSystem* drawableSystem;
+	std::unique_ptr<SystemManager> systemManager;
 
 	InputManager inputManager;
 

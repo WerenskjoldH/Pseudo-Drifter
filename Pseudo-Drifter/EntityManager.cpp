@@ -53,7 +53,7 @@ void EntityManager::LogInfo()
 
     printf("\n");
 
-    for (std::unordered_map<std::string, std::shared_ptr<std::unordered_map<std::shared_ptr<Entity>, std::shared_ptr<Component>>>>::iterator compIt = entityToComponents.begin(); compIt != entityToComponents.end(); compIt++)
+    for (auto compIt = entityToComponents.begin(); compIt != entityToComponents.end(); compIt++)
     {
         std::string s = compIt->first;
         std::cout << "Total " << s << "s: " << (*entityToComponents[s]).size() << std::endl;

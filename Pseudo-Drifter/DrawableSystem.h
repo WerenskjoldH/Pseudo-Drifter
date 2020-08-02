@@ -12,7 +12,7 @@
 class DrawableSystem : public System
 {
 public:
-	DrawableSystem(EntityManager* iEntityManager);
+	DrawableSystem();
 	
 	void Draw(SDL_Renderer* renderer, const Camera& c) override;
 };

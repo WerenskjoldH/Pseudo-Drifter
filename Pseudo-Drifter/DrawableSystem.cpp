@@ -7,7 +7,7 @@
 #include "PositionComponent.h"
 #include "DrawableComponent.h"
 
-DrawableSystem::DrawableSystem(EntityManager* iEntityManager) : System(iEntityManager)
+DrawableSystem::DrawableSystem()
 {
 }
 

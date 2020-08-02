@@ -12,6 +12,7 @@
 		* shared_ptr is being abused 
 		* Is a vector really best given how often we may remove objects? The reduced cache misses might still mean yes. I want to explore this
 		* Memory Pooling on Maps
+		* Should I just migrate definitions into the header? Due to templates we have to for a lot of functions anyways
 */
 
 #include "Entity.h"

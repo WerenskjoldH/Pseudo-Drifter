@@ -1,5 +1,10 @@
 #include "System.h"
 
-System::System(EntityManager* iEntityManager) : entityManager{iEntityManager}
+System::System()
 {
+}
+
+void System::AssignEntityManager(EntityManager* iEntityManager)
+{
+	entityManager = iEntityManager;
 }

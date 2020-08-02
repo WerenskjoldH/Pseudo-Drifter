@@ -8,8 +8,7 @@
 #include "Definitions.h"
 
 #include "DrawableSystem.h"
-#include "PositionComponent.h"
-#include "DrawableComponent.h"
+#include "EntityFactory.h"
 
 // Global variable(s)
 InputManager* G_INPUT = nullptr;
@@ -21,8 +20,6 @@ Engine::Engine()
 
 Engine::~Engine()
 {
-	delete drawableSystem;
-
 	SDL_DestroyWindow(window);
 	SDL_DestroyRenderer(renderer);
 	SDL_Quit();
@@ -34,11 +31,10 @@ void Engine::Initialize()
 	InitInput();
 	InitWorld();
 
-	std::shared_ptr<Entity> player = entityManager.AddEntity();
-	entityManager.AddComponent<PositionComponent>(player, new PositionComponent(rn::vector3f(0, 10, 500)));
-	entityManager.AddComponent<DrawableComponent>(player, new DrawableComponent(rn::vector4f(144, 155, 100, 255)));
+	systemManager = std::make_unique<SystemManager>(&entityManager);
+	systemManager->AddSystem<DrawableSystem>();
 
-	drawableSystem = new DrawableSystem(&entityManager);
+	CreateBall(entityManager, rn::vector3f(20, 15, 650), rn::vector4f(100, 200, 120, 255));
 }
 
 void Engine::InitSDL()
@@ -163,6 +159,8 @@ void Engine::Update()
 
 	mainCamera->Update(DELTA_TIME);
 
+	systemManager->Update(DELTA_TIME);
+
 	// This is for debugging purposes - to be removed
 	if (inputManager.KeyPress(SDLK_i))
 		entityManager.LogInfo();
@@ -196,7 +194,7 @@ void Engine::Draw()
 		GfxDrawBrenCircle(renderer, floatingDotTwoCenter.sV.x, floatingDotTwoCenter.sV.y, (floatingDotTwoTop.sV - floatingDotTwoCenter.sV).magnitude(), true);
 	}
 
-	drawableSystem->Draw(renderer, *mainCamera);
+	systemManager->Draw(renderer, *mainCamera);
 
 	// Draws the player
 	rn::project(player->dV, mainCamera->v, mainCamera->depth, WINDOW_WIDTH, WINDOW_HEIGHT, ROAD_WIDTH_DEFAULT);
