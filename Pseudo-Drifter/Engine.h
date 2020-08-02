@@ -16,6 +16,9 @@
 #include "Definitions.h"
 #include "InputManager.h"
 
+#include "EntityManager.h"
+#include "DrawableSystem.h"
+
 #include <SDL.h>
 #include <memory>
 #include <vector>
@@ -45,6 +48,9 @@ private:
 	std::shared_ptr<Road> road;
 	std::shared_ptr<Player> player;
 	std::shared_ptr<Camera> mainCamera;
+
+	EntityManager entityManager;
+	DrawableSystem* drawableSystem;
 
 	InputManager inputManager;
 

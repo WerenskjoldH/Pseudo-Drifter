@@ -60,6 +60,12 @@
     <ClCompile Include="System.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="PositionComponent.cpp">
+      <Filter>Source Files\Entity-Component System</Filter>
+    </ClCompile>
+    <ClCompile Include="DrawableSystem.cpp">
+      <Filter>Source Files\Entity-Component System</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
@@ -111,6 +117,12 @@
       <Filter>Header Files\Entity-Component System</Filter>
     </ClInclude>
     <ClInclude Include="System.h">
+      <Filter>Header Files\Entity-Component System</Filter>
+    </ClInclude>
+    <ClInclude Include="DrawableSystem.h">
+      <Filter>Header Files\Entity-Component System</Filter>
+    </ClInclude>
+    <ClInclude Include="PositionComponent.h">
       <Filter>Header Files\Entity-Component System</Filter>
     </ClInclude>
   </ItemGroup>

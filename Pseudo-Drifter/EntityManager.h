@@ -36,7 +36,18 @@ public:
 	std::shared_ptr<Entity> AddEntity();
 	void RemoveEntity(std::shared_ptr<Entity> e);
 
-	void AddComponent(std::shared_ptr<Entity> e, Component* c);
+	template <class T>
+	void AddComponent(std::shared_ptr<Entity> e, T* c)
+	{
+		std::shared_ptr<std::unordered_map<std::shared_ptr<Entity>, std::shared_ptr<Component>>> entityComponents = entityToComponents[c->GetComponentName()];
+		if (!entityComponents)
+		{
+			entityComponents = std::make_shared<std::unordered_map<std::shared_ptr<Entity>, std::shared_ptr<Component>>>();
+			entityToComponents[c->GetComponentName()] = entityComponents;
+		}
+		(*entityComponents)[e] = std::make_shared<T>(*c);
+	}
+
 	std::shared_ptr<Component> GetComponent(const std::string s, std::shared_ptr<Entity> e);
 
 	std::vector<std::shared_ptr<Entity>> GetAllEntitiesWithComponent(std::string componentName);

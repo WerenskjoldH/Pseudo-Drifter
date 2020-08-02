@@ -7,6 +7,10 @@
 #include "Camera.h"
 #include "Definitions.h"
 
+#include "DrawableSystem.h"
+#include "PositionComponent.h"
+#include "DrawableComponent.h"
+
 // Global variable(s)
 InputManager* G_INPUT = nullptr;
 
@@ -17,6 +21,8 @@ Engine::Engine()
 
 Engine::~Engine()
 {
+	delete drawableSystem;
+
 	SDL_DestroyWindow(window);
 	SDL_DestroyRenderer(renderer);
 	SDL_Quit();
@@ -27,6 +33,12 @@ void Engine::Initialize()
 	InitSDL();
 	InitInput();
 	InitWorld();
+
+	std::shared_ptr<Entity> player = entityManager.AddEntity();
+	entityManager.AddComponent<PositionComponent>(player, new PositionComponent(rn::vector3f(0, 10, 500)));
+	entityManager.AddComponent<DrawableComponent>(player, new DrawableComponent(rn::vector4f(144, 155, 100, 255)));
+
+	drawableSystem = new DrawableSystem(&entityManager);
 }
 
 void Engine::InitSDL()
@@ -178,6 +190,8 @@ void Engine::Draw()
 		SDL_SetRenderDrawColor(renderer, 144, 255, 144, 255);
 		GfxDrawBrenCircle(renderer, floatingDotTwoCenter.sV.x, floatingDotTwoCenter.sV.y, (floatingDotTwoTop.sV - floatingDotTwoCenter.sV).magnitude(), true);
 	}
+
+	drawableSystem->Draw(renderer, *mainCamera);
 
 	// Draws the player
 	rn::project(player->dV, mainCamera->v, mainCamera->depth, WINDOW_WIDTH, WINDOW_HEIGHT, ROAD_WIDTH_DEFAULT);

@@ -15,20 +15,10 @@
 #include "Engine.h"
 #include "EntityManager.h"
 #include "DrawableComponent.h"
+#include "PositionComponent.h"
 
 int main(int args, char* argv[])
 {
-	EntityManager em;
-	std::shared_ptr<Entity> entity = em.AddEntity();
-	em.AddComponent(entity, new DrawableComponent(rn::vector4f(150.0f)));
-
-	em.LogInfo();
-
-	em.RemoveEntity(entity);
-
-	em.LogInfo();
-
-	return 0;
-	//Engine e;
-	//return e.Begin();
+	Engine e;
+	return e.Begin();
 }

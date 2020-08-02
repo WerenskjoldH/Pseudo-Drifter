@@ -30,17 +30,6 @@ void EntityManager::RemoveEntity(std::shared_ptr<Entity> e)
         }
 }
 
-void EntityManager::AddComponent(std::shared_ptr<Entity> e, Component* c)
-{
-    std::shared_ptr<std::unordered_map<std::shared_ptr<Entity>, std::shared_ptr<Component>>> entityComponents = entityToComponents[c->GetComponentName()];
-    if (!entityComponents)
-    {
-        entityComponents = std::make_shared<std::unordered_map<std::shared_ptr<Entity>, std::shared_ptr<Component>>>();
-        entityToComponents[c->GetComponentName()] = entityComponents;
-    }
-    (*entityComponents)[e] = std::make_shared<Component>(*c);
-}
-
 std::shared_ptr<Component> EntityManager::GetComponent(const std::string s, std::shared_ptr<Entity> e)
 {
     if (entityToComponents[s]->find(e) == entityToComponents[s]->end())
