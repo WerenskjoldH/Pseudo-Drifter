@@ -21,10 +21,7 @@ protected:
 public: 
 	Component(const std::string iComponentName);
 
-	const std::string& GetComponentName() const
-	{
-		return componentName;
-	}
+	const std::string& GetComponentName() const;
 
 };
 

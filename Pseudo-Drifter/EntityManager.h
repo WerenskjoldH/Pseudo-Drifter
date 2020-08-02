@@ -24,11 +24,11 @@
 class EntityManager
 {
 private:
-	std::unordered_map<std::string, std::shared_ptr<std::unordered_map<unsigned int, std::shared_ptr<Component>>>> entityToComponents;
+	std::unordered_map<std::string, std::shared_ptr<std::unordered_map<std::shared_ptr<Entity>, std::shared_ptr<Component>>>> entityToComponents;
 
 	std::vector<std::shared_ptr<Entity>> entities;
 
-	int curID = 0;
+	int nextAvailableID = 0;
 
 public:
 	EntityManager();
@@ -38,6 +38,8 @@ public:
 
 	void AddComponent(std::shared_ptr<Entity> e, Component* c);
 	std::shared_ptr<Component> GetComponent(const std::string s, std::shared_ptr<Entity> e);
+
+	std::vector<std::shared_ptr<Entity>> GetAllEntitiesWithComponent(std::string componentName);
 
 	void LogInfo();
 
