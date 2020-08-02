@@ -78,6 +78,7 @@ void Engine::InitInput()
 	inputManager.BindKey(SDLK_a);
 	inputManager.BindKey(SDLK_s);
 	inputManager.BindKey(SDLK_d);
+	inputManager.BindKey(SDLK_i);
 	inputManager.BindKey(SDLK_SPACE);
 
 	G_INPUT = &inputManager;
@@ -162,7 +163,8 @@ void Engine::Update()
 
 	mainCamera->Update(DELTA_TIME);
 
-	if (inputManager.KeyPress(SDLK_SPACE))
+	// This is for debugging purposes - to be removed
+	if (inputManager.KeyPress(SDLK_i))
 		entityManager.LogInfo();
 }
 
