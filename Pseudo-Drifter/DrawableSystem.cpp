@@ -13,13 +13,11 @@ DrawableSystem::DrawableSystem(EntityManager* iEntityManager) : System(iEntityMa
 
 void DrawableSystem::Draw(SDL_Renderer* renderer, const Camera& c)
 {
-	std::vector<std::shared_ptr<Entity>> entities =  entityManager->GetAllEntitiesWithComponent("DrawableComponent");
+	std::vector<std::shared_ptr<Entity>> entities =  entityManager->GetAllEntitiesWithComponent<DrawableComponent>();
 	for (auto& e : entities)
 	{
-		std::shared_ptr<DrawableComponent> dc = std::static_pointer_cast<DrawableComponent>(entityManager->GetComponent("DrawableComponent", e));
-		std::shared_ptr<PositionComponent> pc = std::static_pointer_cast<PositionComponent>(entityManager->GetComponent("PositionComponent", e));
-		
-
+		std::shared_ptr<DrawableComponent> dc = entityManager->GetComponent<DrawableComponent>(e);
+		std::shared_ptr<PositionComponent> pc = entityManager->GetComponent<PositionComponent>(e);
 
 		if (!pc)
 			continue;

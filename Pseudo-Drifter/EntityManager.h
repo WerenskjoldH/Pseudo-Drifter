@@ -17,6 +17,8 @@
 #include "Entity.h"
 #include "Component.h"
 
+#include "ConsoleColorer.h"
+
 #include <unordered_map>
 #include <memory>
 #include <vector>
@@ -39,18 +41,49 @@ public:
 	template <class T>
 	void AddComponent(std::shared_ptr<Entity> e, T* c)
 	{
-		std::shared_ptr<std::unordered_map<std::shared_ptr<Entity>, std::shared_ptr<Component>>> entityComponents = entityToComponents[c->GetComponentName()];
+		const char* componentName = typeid(T).name();
+
+		std::shared_ptr<std::unordered_map<std::shared_ptr<Entity>, std::shared_ptr<Component>>> entityComponents = entityToComponents[componentName];
 		if (!entityComponents)
 		{
 			entityComponents = std::make_shared<std::unordered_map<std::shared_ptr<Entity>, std::shared_ptr<Component>>>();
-			entityToComponents[c->GetComponentName()] = entityComponents;
+			entityToComponents[componentName] = entityComponents;
 		}
 		(*entityComponents)[e] = std::make_shared<T>(*c);
 	}
 
-	std::shared_ptr<Component> GetComponent(const std::string s, std::shared_ptr<Entity> e);
+	template <class T>
+	std::shared_ptr<T> GetComponent(std::shared_ptr<Entity> e)
+	{
+		const char* componentName = typeid(T).name();
 
-	std::vector<std::shared_ptr<Entity>> GetAllEntitiesWithComponent(std::string componentName);
+		if (entityToComponents[componentName]->find(e) == entityToComponents[componentName]->end())
+		{
+			WRITE_CONSOLE_WARNING("ENTITY MANAGER", "WARNING", "Component not found");
+		}
+
+		return std::static_pointer_cast<T>((*entityToComponents[componentName])[e]);
+	}
+
+	template <class T>
+	std::vector<std::shared_ptr<Entity>> GetAllEntitiesWithComponent()
+	{
+		const char* componentName = typeid(T).name();
+
+		std::vector<std::shared_ptr<Entity>> entityList;
+
+		std::shared_ptr<std::unordered_map<std::shared_ptr<Entity>, std::shared_ptr<Component>>> entityComponents = entityToComponents[componentName];
+
+		if (entityComponents)
+		{
+			for (auto& kvPair : (*entityComponents))
+			{
+				entityList.push_back(kvPair.first);
+			}
+		}
+
+		return entityList;
+	}
 
 	void LogInfo();
 

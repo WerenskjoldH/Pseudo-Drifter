@@ -161,6 +161,9 @@ void Engine::Update()
 	player->Update(DELTA_TIME);
 
 	mainCamera->Update(DELTA_TIME);
+
+	if (inputManager.KeyPress(SDLK_SPACE))
+		entityManager.LogInfo();
 }
 
 void Engine::Draw()

@@ -1,5 +1,4 @@
 #include "EntityManager.h"
-#include "ConsoleColorer.h"
 
 EntityManager::EntityManager()
 {
@@ -28,33 +27,6 @@ void EntityManager::RemoveEntity(std::shared_ptr<Entity> e)
             entities.erase(it);
             return;
         }
-}
-
-std::shared_ptr<Component> EntityManager::GetComponent(const std::string s, std::shared_ptr<Entity> e)
-{
-    if (entityToComponents[s]->find(e) == entityToComponents[s]->end())
-    {
-        WRITE_CONSOLE_WARNING("ENTITY MANAGER", "WARNING", "Component not found");
-    }
-
-    return (*entityToComponents[s])[e];
-}
-
-std::vector<std::shared_ptr<Entity>> EntityManager::GetAllEntitiesWithComponent(std::string componentName)
-{
-    std::vector<std::shared_ptr<Entity>> entityList;
-
-    std::shared_ptr<std::unordered_map<std::shared_ptr<Entity>, std::shared_ptr<Component>>> entityComponents = entityToComponents[componentName];
-
-    if (entityComponents)
-    {
-        for (auto& kvPair : (*entityComponents))
-        {
-            entityList.push_back(kvPair.first);
-        }
-    }
-
-    return entityList;
 }
 
 void EntityManager::LogInfo()
