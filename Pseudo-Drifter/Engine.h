@@ -16,6 +16,9 @@
 #include "Definitions.h"
 #include "InputManager.h"
 
+#include "EntityManager.h"
+#include "SystemManager.h"
+
 #include <SDL.h>
 #include <memory>
 #include <vector>
@@ -39,11 +42,15 @@ public:
 
 private:
 	bool isRunning = true;
+	
 	float totalTimeSinceStart = 0;
 
 	std::shared_ptr<Road> road;
 	std::shared_ptr<Player> player;
 	std::shared_ptr<Camera> mainCamera;
+
+	EntityManager entityManager;
+	std::unique_ptr<SystemManager> systemManager;
 
 	InputManager inputManager;
 

@@ -13,9 +13,12 @@
 */
 
 #include "Engine.h"
+#include "EntityManager.h"
+#include "DrawableComponent.h"
+#include "PositionComponent.h"
 
 int main(int args, char* argv[])
 {
 	Engine e;
-	return e.Begin();;
+	return e.Begin();
 }

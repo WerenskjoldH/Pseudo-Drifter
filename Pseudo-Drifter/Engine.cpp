@@ -7,6 +7,9 @@
 #include "Camera.h"
 #include "Definitions.h"
 
+#include "DrawableSystem.h"
+#include "EntityFactory.h"
+
 // Global variable(s)
 InputManager* G_INPUT = nullptr;
 
@@ -27,6 +30,11 @@ void Engine::Initialize()
 	InitSDL();
 	InitInput();
 	InitWorld();
+
+	systemManager = std::make_unique<SystemManager>(&entityManager);
+	systemManager->AddSystem<DrawableSystem>();
+
+	CreateBall(entityManager, rn::vector3f(20, 15, 650), rn::vector4f(100, 200, 120, 255));
 }
 
 void Engine::InitSDL()
@@ -66,6 +74,7 @@ void Engine::InitInput()
 	inputManager.BindKey(SDLK_a);
 	inputManager.BindKey(SDLK_s);
 	inputManager.BindKey(SDLK_d);
+	inputManager.BindKey(SDLK_i);
 	inputManager.BindKey(SDLK_SPACE);
 
 	G_INPUT = &inputManager;
@@ -94,10 +103,16 @@ int Engine::Begin()
 	SDL_SetRenderDrawColor(renderer, DEFAULT_R, DEFAULT_G, DEFAULT_B, 255);
 	SDL_RenderClear(renderer);
 
+	// Do note that SDL_GetTicks() returns milliseconds, not centiseconds
+	float frameStartTime = SDL_GetTicks() * .01f;
+	float timeAccumulator = 0.f;
+
 	SDL_Event e;
 	// Game loop	
 	while (isRunning)
 	{
+		const float currentTime = SDL_GetTicks() * .01f;
+
 		while (SDL_PollEvent(&e))
 		{
 			if (e.type == SDL_QUIT || (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_ESCAPE))
@@ -108,12 +123,29 @@ int Engine::Begin()
 			G_INPUT->UpdateInput(e);
 		}
 
-		Update();
+		/*
+			Deterministic Timesteps
+			To-Do:
+				- Split Logic & "Physics"/Fixed Updates
+				- Interpolated Drawing(?)
+		*/
+
+		timeAccumulator += (currentTime - frameStartTime);
+		frameStartTime = currentTime;
+
+		// If there is some heavy slow-downs due to hefty calculations or the likes, this will prevent the accumulator growing too large to maintain a good frame-rate
+		timeAccumulator = (timeAccumulator > MAX_DELTA_TIME) ? MAX_DELTA_TIME : timeAccumulator;
+
+		while (timeAccumulator >= DELTA_TIME) 
+		{
+			Update();
+			timeAccumulator -= DELTA_TIME;
+			totalTimeSinceStart += DELTA_TIME;
+		}
 
 		Draw();
 
 		G_INPUT->UpdatePrevInput();
-		totalTimeSinceStart += DELTA_TIME;
 	}
 
 	return 0;
@@ -126,6 +158,12 @@ void Engine::Update()
 	player->Update(DELTA_TIME);
 
 	mainCamera->Update(DELTA_TIME);
+
+	systemManager->Update(DELTA_TIME);
+
+	// This is for debugging purposes - to be removed
+	if (inputManager.KeyPress(SDLK_i))
+		entityManager.LogInfo();
 }
 
 void Engine::Draw()
@@ -155,6 +193,8 @@ void Engine::Draw()
 		SDL_SetRenderDrawColor(renderer, 144, 255, 144, 255);
 		GfxDrawBrenCircle(renderer, floatingDotTwoCenter.sV.x, floatingDotTwoCenter.sV.y, (floatingDotTwoTop.sV - floatingDotTwoCenter.sV).magnitude(), true);
 	}
+
+	systemManager->Draw(renderer, *mainCamera);
 
 	// Draws the player
 	rn::project(player->dV, mainCamera->v, mainCamera->depth, WINDOW_WIDTH, WINDOW_HEIGHT, ROAD_WIDTH_DEFAULT);

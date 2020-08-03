@@ -94,6 +94,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -135,26 +136,43 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Component.cpp" />
+    <ClCompile Include="DrawableComponent.cpp" />
+    <ClCompile Include="DrawableSystem.cpp" />
     <ClCompile Include="Engine.cpp" />
+    <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="EntityFactory.cpp" />
+    <ClCompile Include="EntityManager.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PositionComponent.cpp" />
     <ClCompile Include="Road.cpp" />
+    <ClCompile Include="System.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Component.h" />
     <ClInclude Include="ConsoleColorer.h" />
     <ClInclude Include="Definitions.h" />
+    <ClInclude Include="DrawableComponent.h" />
+    <ClInclude Include="DrawableSystem.h" />
     <ClInclude Include="Engine.h" />
+    <ClInclude Include="Entity.h" />
+    <ClInclude Include="EntityFactory.h" />
+    <ClInclude Include="EntityManager.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GfxHelper.h" />
     <ClInclude Include="InputManager.h" />
-    <ClInclude Include="matrix.h" />
     <ClInclude Include="Player.h" />
-    <ClInclude Include="precision.h" />
+    <ClInclude Include="PositionComponent.h" />
     <ClInclude Include="Road.h" />
-    <ClInclude Include="vector.h" />
+    <ClInclude Include="Ronin-Math-Library\matrix.h" />
+    <ClInclude Include="Ronin-Math-Library\precision.h" />
+    <ClInclude Include="Ronin-Math-Library\vector.h" />
+    <ClInclude Include="System.h" />
+    <ClInclude Include="SystemManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
