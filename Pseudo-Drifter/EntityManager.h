@@ -44,7 +44,7 @@ public:
 	{
 		const char* componentName = typeid(T).name();
 
-		std::shared_ptr<std::unordered_map<std::shared_ptr<Entity>, std::shared_ptr<Component>>> entityComponents = entityToComponents[componentName];
+		auto entityComponents = entityToComponents[componentName];
 		if (!entityComponents)
 		{
 			entityComponents = std::make_shared<std::unordered_map<std::shared_ptr<Entity>, std::shared_ptr<Component>>>();
@@ -73,7 +73,7 @@ public:
 
 		std::vector<std::shared_ptr<Entity>> entityList;
 
-		std::shared_ptr<std::unordered_map<std::shared_ptr<Entity>, std::shared_ptr<Component>>> entityComponents = entityToComponents[componentName];
+		auto entityComponents = entityToComponents[componentName];
 
 		if (entityComponents)
 		{

@@ -13,7 +13,7 @@ std::shared_ptr<Entity> EntityManager::AddEntity()
 
 void EntityManager::RemoveEntity(std::shared_ptr<Entity> e)
 {
-    for (std::unordered_map<std::string, std::shared_ptr<std::unordered_map<std::shared_ptr<Entity>, std::shared_ptr<Component>>>>::iterator it = entityToComponents.begin(); it != entityToComponents.end(); it++)
+    for (auto it = entityToComponents.begin(); it != entityToComponents.end(); it++)
     {
         std::string s = it->first;
         if (entityToComponents[s]->find(e) != entityToComponents[s]->end())
@@ -41,7 +41,7 @@ void EntityManager::LogInfo()
     {
         std::cout << "\t" << entityIt->id << std::endl;
         std::cout << "\t- Entity " << entityIt->id << "\'s Components:" << std::endl;
-        for (std::unordered_map<std::string, std::shared_ptr<std::unordered_map<std::shared_ptr<Entity>, std::shared_ptr<Component>>>>::iterator compIt = entityToComponents.begin(); compIt != entityToComponents.end(); compIt++)
+        for (auto compIt = entityToComponents.begin(); compIt != entityToComponents.end(); compIt++)
         {
             std::string s = compIt->first;
             if (entityToComponents[s]->find(entityIt) != entityToComponents[s]->end())
