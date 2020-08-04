@@ -56,7 +56,7 @@ void EntityManager::LogInfo()
     for (auto compIt = entityToComponents.begin(); compIt != entityToComponents.end(); compIt++)
     {
         std::string s = compIt->first;
-        std::cout << "Total " << s << "s: " << (*entityToComponents[s]).size() << std::endl;
+        std::cout << "Total " << s.substr(6) << "s: " << (*entityToComponents[s]).size() << std::endl;
     }
 
     printf("------------------------\n\n");
