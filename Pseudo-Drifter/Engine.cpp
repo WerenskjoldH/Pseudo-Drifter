@@ -173,27 +173,6 @@ void Engine::Draw()
 
 	road->Draw(renderer, *mainCamera);
 
-	// This is currently rough testing code for creating dots that sit on the track
-	rn::dualVector floatingDotCenter(rn::vector3f(0, 0, 1000));
-	rn::dualVector floatingDotTop(rn::vector3f(0, 10, 1000));
-	rn::project(floatingDotCenter, mainCamera->v, mainCamera->depth, WINDOW_WIDTH, WINDOW_HEIGHT, ROAD_WIDTH_DEFAULT);
-	rn::project(floatingDotTop, mainCamera->v, mainCamera->depth, WINDOW_WIDTH, WINDOW_HEIGHT, ROAD_WIDTH_DEFAULT);
-
-	rn::dualVector floatingDotTwoCenter(rn::vector3f(10, 20, 2000));
-	rn::dualVector floatingDotTwoTop(rn::vector3f(10, 30, 2000));
-	rn::project(floatingDotTwoCenter, mainCamera->v, mainCamera->depth, WINDOW_WIDTH, WINDOW_HEIGHT, ROAD_WIDTH_DEFAULT);
-	rn::project(floatingDotTwoTop, mainCamera->v, mainCamera->depth, WINDOW_WIDTH, WINDOW_HEIGHT, ROAD_WIDTH_DEFAULT);
-
-	if (floatingDotCenter.wV.z > player->dV.wV.z) {
-		SDL_SetRenderDrawColor(renderer, 144, 255, 144, 255);
-		GfxDrawBrenCircle(renderer, floatingDotCenter.sV.x, floatingDotCenter.sV.y, (floatingDotTop.sV - floatingDotCenter.sV).magnitude(), true);
-	}
-
-	if (floatingDotTwoCenter.wV.z > player->dV.wV.z) {
-		SDL_SetRenderDrawColor(renderer, 144, 255, 144, 255);
-		GfxDrawBrenCircle(renderer, floatingDotTwoCenter.sV.x, floatingDotTwoCenter.sV.y, (floatingDotTwoTop.sV - floatingDotTwoCenter.sV).magnitude(), true);
-	}
-
 	systemManager->Draw(renderer, *mainCamera);
 
 	// Draws the player

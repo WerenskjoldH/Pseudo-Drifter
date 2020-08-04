@@ -14,8 +14,10 @@ class DrawableComponent : public Component
 {
 public:
 	rn::vector4f color;
+	// Radius of the circle -- This is temporary
+	int radius;
 
-	DrawableComponent(rn::vector4f iColor);
+	DrawableComponent(rn::vector4f iColor, int radius);
 };
 
 #endif

@@ -1,5 +1,5 @@
 #include "DrawableComponent.h"
 
-DrawableComponent::DrawableComponent(rn::vector4f iColor) : color{ iColor }, Component("DrawableComponent")
+DrawableComponent::DrawableComponent(rn::vector4f iColor, int radius) : color{ iColor }, radius{ radius }, Component("DrawableComponent")
 {
 }

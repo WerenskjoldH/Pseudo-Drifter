@@ -22,8 +22,20 @@ void DrawableSystem::Draw(SDL_Renderer* renderer, const Camera& c)
 		if (!pc)
 			continue;
 
-		rn::project(pc->dV, c.v, c.depth, WINDOW_WIDTH, WINDOW_HEIGHT, ROAD_WIDTH_DEFAULT);
-		SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-		GfxDrawBrenCircle(renderer, pc->dV.sV.x, pc->dV.sV.y, 20.f, true);
+		// This is quite temporary until the ECS is fully implemented
+		if (pc->dV.wV.z > c.v.z)
+		{
+			rn::dualVector circleTop(pc->dV.wV);
+			circleTop.wV.y += dc->radius;
+			rn::project(pc->dV, c.v, c.depth, WINDOW_WIDTH, WINDOW_HEIGHT, ROAD_WIDTH_DEFAULT);
+			rn::project(circleTop, c.v, c.depth, WINDOW_WIDTH, WINDOW_HEIGHT, ROAD_WIDTH_DEFAULT);
+
+			// This will temporarily handle clipping
+			if (circleTop.sV.y < WINDOW_HEIGHT) 
+			{
+				SDL_SetRenderDrawColor(renderer, dc->color.r(), dc->color.g(), dc->color.b(), dc->color.a());
+				GfxDrawBrenCircle(renderer, pc->dV.sV.x, pc->dV.sV.y, (circleTop.sV - pc->dV.sV).magnitude(), true);
+			}
+		}
 	}
 }

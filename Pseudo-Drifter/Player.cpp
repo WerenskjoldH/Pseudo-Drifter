@@ -31,8 +31,8 @@ void Player::Movement(float dt)
 	if (G_INPUT->KeyDown(SDLK_w))
 		carHeading.z = 1;
 
-	if (G_INPUT->KeyDown(SDLK_s))
-		carHeading.z = -1;
+	//if (G_INPUT->KeyDown(SDLK_s))
+	//	carHeading.z = -1;
 
 	if (G_INPUT->KeyDown(SDLK_a))
 		carHeading.x = -1;
