@@ -34,6 +34,7 @@ void Engine::Initialize()
 	systemManager = std::make_unique<SystemManager>(&entityManager);
 	systemManager->AddSystem<DrawableSystem>();
 
+
 	CreateBall(entityManager, rn::vector3f(20, 15, 650), rn::vector4f(100, 200, 120, 255));
 }
 
