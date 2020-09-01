@@ -52,7 +52,7 @@ namespace rn {
 		}
 
 		// Copy Constructor
-		matrix(matrix& const m) : rowSize(m.rowSize), columnSize(m.columnSize)
+		matrix(const matrix& m) : rowSize(m.rowSize), columnSize(m.columnSize)
 		{
 			ij = new real*[m.rowSize];
 			for (int x = 0; x < m.rowSize; x++)
@@ -60,7 +60,7 @@ namespace rn {
 
 			for (int x = 0; x < rowSize; x++)
 				for (int y = 0; y < rowSize; y++)
-					ij[x][y] = m(x, y);
+					ij[x][y] = m.ij[x][y];
 		}
 
 		// Deconstructor
@@ -75,45 +75,25 @@ namespace rn {
 		// Operator Overloads
 		matrix& operator=(const matrix& m)
 		{
-			try
-			{
-				for (int x = 0; x < rowSize; x++)
-					for (int y = 0; y < rowSize; y++)
-						ij[x][y] = m.ij[x][y];
+			for (int x = 0; x < rowSize; x++)
+				for (int y = 0; y < rowSize; y++)
+					ij[x][y] = m.ij[x][y];
 
-				return *this;
-			}
-			catch (std::exception& e)
-			{
-				throw "Failure to set matrix equal: Make sure rows and column sizes are equal";
-			}
+			return *this;
 		}
 
-		void operator+=(matrix & const m)
+		void operator+=(const matrix& m)
 		{
-			try
-			{
-				for (int x = 0; x < rowSize; x++)
-					for (int y = 0; y < rowSize; y++)
-						ij[x][y] += m(x, y);
-			}
-			catch (std::exception &e)
-			{
-				throw "Failure to add matrices: Make sure rows and column sizes are equal";
-			}
+			for (int x = 0; x < rowSize; x++)
+				for (int y = 0; y < rowSize; y++)
+					ij[x][y] += m.ij[x][y];
 		}
 
-		void operator-=(matrix & const m)
+		void operator-=(const matrix& m)
 		{
-			try {
-				for (int x = 0; x < rowSize; x++)
-					for (int y = 0; y < rowSize; y++)
-						ij[x][y] -= m(x, y);
-			}
-			catch (std::exception &e)
-			{
-				throw "Failure to subtract matrices: Make sure rows and column sizes are equal";
-			}
+			for (int x = 0; x < rowSize; x++)
+				for (int y = 0; y < rowSize; y++)
+					ij[x][y] -= m.ij[x][y];
 		}
 
 		void operator*=(const real & s)
@@ -141,59 +121,38 @@ namespace rn {
 			return temp;
 		}
 
-		matrix operator-(matrix & const m)
+		matrix operator-(const matrix & m)
 		{
-			try
-			{
-				matrix temp = *this;
+			matrix temp = *this;
 
-				for (int x = 0; x < rowSize; x++)
-					for (int y = 0; y < rowSize; y++)
-						temp.ij[x][y] -= m(x, y);
+			for (int x = 0; x < rowSize; x++)
+				for (int y = 0; y < rowSize; y++)
+					temp.ij[x][y] -= m.ij[x][y];
 
-				return temp;
-			}
-			catch (std::exception &e)
-			{
-				throw "Failure to subtract matrices: Make sure rows and column sizes are equal";
-			}
+			return temp;
 		}
 
-		matrix operator+(matrix & const m)
+		matrix operator+(const matrix & m)
 		{
-			try
-			{
-				matrix temp = *this;
+			matrix temp = *this;
 
-				for (int x = 0; x < rowSize; x++)
-					for (int y = 0; y < rowSize; y++)
-						temp.ij[x][y] += m(x, y);
+			for (int x = 0; x < rowSize; x++)
+				for (int y = 0; y < rowSize; y++)
+					temp.ij[x][y] += m.ij[x][y];
 
-				return temp;
-			}
-			catch (std::exception &e)
-			{
-				throw "Failure to add matrices: Make sure rows and column sizes are equal";
-			}
+			return temp;
 		}
 
-		matrix operator*(matrix & const m)
+		matrix operator*(const matrix & m)
 		{
-			try
-			{
-				matrix temp(rowSize, m.columnSize);
+			matrix temp(rowSize, m.columnSize);
 
-				for (int x = 0; x < rowSize; x++)
-					for (int y = 0; y < m.columnSize; y++)
-						for (int i = 0; i < rowSize; i++)
-							temp.ij[x][y] += ij[x][i] * m(i, y);
+			for (int x = 0; x < rowSize; x++)
+				for (int y = 0; y < m.columnSize; y++)
+					for (int i = 0; i < rowSize; i++)
+						temp.ij[x][y] += ij[x][i] * m.ij[i][y];
 
-				return temp;
-			}
-			catch (std::exception &e)
-			{
-				throw "Failure to multiply matrices: Make sure rows and column sizes are equal";
-			}
+			return temp;
 		}
 
 		real& operator()(int row, int column)
@@ -205,7 +164,7 @@ namespace rn {
 
 	};
 
-	inline matrix operator*(const real s, matrix& const m)
+	inline matrix operator*(const real s, const matrix& m)
 	{
 		matrix temp = m;
 
