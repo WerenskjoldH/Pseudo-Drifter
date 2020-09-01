@@ -23,7 +23,7 @@ namespace rn
 		real y;
 		real z;
 		// For 4-word speed increase, most computers now-a-days use 4-word memory busses and, as such, just 3-words requires an offset
-		real padding;
+		real padding = 0;
 
 		// Getters/Setters
 		real r() const

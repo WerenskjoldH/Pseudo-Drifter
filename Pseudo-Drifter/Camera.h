@@ -21,6 +21,9 @@
 #include "Ronin-Math-Library/vector.h"
 
 class GameObject;
+class PositionComponent;
+class EntityManager;
+class Entity;
 
 class Camera
 {
@@ -30,7 +33,7 @@ public:
 
 	rn::vector3f v;
 
-	std::shared_ptr<GameObject> target;
+	std::shared_ptr<PositionComponent> target;
 
 	/*
 		@param position World space position of the camera
@@ -43,10 +46,9 @@ public:
 	void Update(float dt);
 
 	/* Assigns the target of the camera
-		@param t Game object being assigned as the camera target
+		@param positionComp Positional component being assigned as the camera target
 	*/
-	void AssignTarget(std::shared_ptr<GameObject> t);
-
+	void AssignTarget(EntityManager* entityManager, std::shared_ptr<Entity> e);
 };
 
 #endif

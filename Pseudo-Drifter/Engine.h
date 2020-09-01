@@ -26,7 +26,7 @@
 class Road;
 class Player;
 class InputManager;
-class Segment;
+struct Segment;
 class Camera;
 
 class Engine

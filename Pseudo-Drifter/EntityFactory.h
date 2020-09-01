@@ -10,5 +10,8 @@
 #include "Ronin-Math-Library/vector.h"
 #include "EntityManager.h"
 
+class Camera;
+
+std::shared_ptr<Entity> CreatePlayer(EntityManager& entityManager, Camera& cam, rn::vector3f position, rn::vector4f color = rn::vector4f(0), int radius = 10.0f);
 std::shared_ptr<Entity> CreateBall(EntityManager& entityManager, rn::vector3f position, rn::vector4f color = rn::vector4f(0), int radius = 10.0f);
 #endif

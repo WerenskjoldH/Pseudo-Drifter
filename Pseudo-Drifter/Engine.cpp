@@ -8,6 +8,7 @@
 #include "Definitions.h"
 
 #include "DrawableSystem.h"
+#include "PhysicsSystem.h"
 #include "EntityFactory.h"
 
 // Global variable(s)
@@ -29,13 +30,12 @@ void Engine::Initialize()
 {
 	InitSDL();
 	InitInput();
-	InitWorld();
 
 	systemManager = std::make_unique<SystemManager>(&entityManager);
 	systemManager->AddSystem<DrawableSystem>();
+	systemManager->AddSystem<PhysicsSystem>();
 
-
-	CreateBall(entityManager, rn::vector3f(20, 15, 650), rn::vector4f(100, 200, 120, 255));
+	InitWorld();
 }
 
 void Engine::InitSDL()
@@ -87,11 +87,11 @@ void Engine::InitWorld()
 
 	mainCamera = std::make_shared<Camera>(rn::vector3f(0, CAMERA_HEIGHT, 0), CAMERA_FOV);
 
-	// The camera parameter of the Player class constructor is actually not that necessary and should be decoupled in the future
-	player = std::make_shared<Player>(rn::vector3f(0), *mainCamera);
-
+	CreateBall(entityManager, rn::vector3f(20, 15, 650), rn::vector4f(100, 200, 120, 255));
+	std::shared_ptr<Entity> e =  CreatePlayer(entityManager, *mainCamera, rn::vector3f(0), rn::vector4f(50, 50, 255, 255));
+	
 	// Assigns the target for the main camera to follow
-	mainCamera->AssignTarget(player);
+	mainCamera->AssignTarget(&entityManager, e);
 }
 
 bool Engine::CheckRunning()
@@ -156,11 +156,9 @@ void Engine::Update()
 {
 	road->Update(DELTA_TIME);
 
-	player->Update(DELTA_TIME);
+	systemManager->Update(DELTA_TIME);
 
 	mainCamera->Update(DELTA_TIME);
-
-	systemManager->Update(DELTA_TIME);
 
 	// This is for debugging purposes - to be removed
 	if (inputManager.KeyPress(SDLK_i))
@@ -175,10 +173,6 @@ void Engine::Draw()
 	road->Draw(renderer, *mainCamera);
 
 	systemManager->Draw(renderer, *mainCamera);
-
-	// Draws the player
-	rn::project(player->dV, mainCamera->v, mainCamera->depth, WINDOW_WIDTH, WINDOW_HEIGHT, ROAD_WIDTH_DEFAULT);
-	player->Draw(renderer, *mainCamera);
 
 	// Swaps the buffer and clears the render target for the next draw step
 	SDL_RenderPresent(renderer);

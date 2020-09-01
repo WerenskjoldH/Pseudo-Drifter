@@ -144,9 +144,9 @@
     <ClCompile Include="EntityFactory.cpp" />
     <ClCompile Include="EntityManager.cpp" />
     <ClCompile Include="GameObject.cpp" />
-    <ClCompile Include="InputComponent.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="PhysicsSystem.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PositionComponent.cpp" />
     <ClCompile Include="Road.cpp" />
@@ -165,8 +165,9 @@
     <ClInclude Include="EntityManager.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GfxHelper.h" />
-    <ClInclude Include="InputComponent.h" />
     <ClInclude Include="InputManager.h" />
+    <ClInclude Include="PhysicsComponent.h" />
+    <ClInclude Include="PhysicsSystem.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PositionComponent.h" />
     <ClInclude Include="Road.h" />

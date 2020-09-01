@@ -79,8 +79,7 @@ void Road::DrawSegment(SDL_Renderer* renderer, Segment& s, const Camera& camera)
 			that we will draw a line between
 		*/
 
-		int bottomRow, topRow;
-		bottomRow = s.bottomLeft.sV.y;
+		int bottomRow = int(s.bottomLeft.sV.y);
 		if (bottomRow > WINDOW_HEIGHT)
 			bottomRow = WINDOW_HEIGHT;
 
@@ -93,8 +92,8 @@ void Road::DrawSegment(SDL_Renderer* renderer, Segment& s, const Camera& camera)
 		float rightSlope = 1.f / ((s.topRight.sV.y - s.bottomRight.sV.y) / (s.topRight.sV.x - s.bottomRight.sV.x));
 
 		// How many discrete points are there between the top vertexes and their bottom counterparts
-		int tLmBl = s.topLeft.sV.y - s.bottomLeft.sV.y;
-		int tRmBr = s.topRight.sV.y - s.bottomRight.sV.y;
+		int tLmBl = int(s.topLeft.sV.y - s.bottomLeft.sV.y);
+		int tRmBr = int(s.topRight.sV.y - s.bottomRight.sV.y);
 
 		for (int i = 0; i < rows; i++)
 		{
@@ -103,8 +102,8 @@ void Road::DrawSegment(SDL_Renderer* renderer, Segment& s, const Camera& camera)
 			SDL_RenderDrawLine(renderer, 0, s.topLeft.sV.y + i, WINDOW_WIDTH, s.topLeft.sV.y + i);
 
 			// Calculate x value given y-position
-			int x1 = (i + tLmBl) * leftSlope;
-			int x2 = (i + tRmBr) * rightSlope;
+			int x1 = int((i + tLmBl) * leftSlope);
+			int x2 = int((i + tRmBr) * rightSlope);
 
 			// Calculate inner points from x1 and x2
 			int runnerLength = fabsf((s.bottomLeft.sV.x + x1) - (s.bottomRight.sV.x + x2)) * PERCENT_RUNNER;

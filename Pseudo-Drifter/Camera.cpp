@@ -1,6 +1,8 @@
 #include "Camera.h"
 #include "GameObject.h"
 #include "ConsoleColorer.h"
+#include "PositionComponent.h"
+#include "EntityManager.h"
 
 Camera::Camera(rn::vector3f position, float cameraFOV)
 {
@@ -13,9 +15,9 @@ Camera::~Camera()
 {
 }
 
-void Camera::AssignTarget(std::shared_ptr<GameObject> t)
+void Camera::AssignTarget(EntityManager* entityManager, std::shared_ptr<Entity> e)
 {
-	target = t;
+	target = entityManager->GetComponent<PositionComponent>(e);
 }
 
 void Camera::Update(float dt)
