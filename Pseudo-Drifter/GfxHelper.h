@@ -101,8 +101,8 @@ inline void GfxDrawEndlessLine(SDL_Renderer* renderer, int cx, int cy, int sw, i
 		maxLength = sh / sinf(atan(sh / sw));
 	}
 
-	int posX = cos(angle) * 2 * sw;
-	int posY = sin(angle) * 2 * sh;
+	int posX = int(cos(angle) * 2 * sw);
+	int posY = int(sin(angle) * 2 * sh);
 	
 	SDL_RenderDrawLine(renderer, cx + posX, cy + posY, cx - posX, cy - posY);
 }
