@@ -31,7 +31,7 @@ void PhysicsSystem::Update(float dt)
 				- Vehicle Controller ( input forces that modify physics component )
 				- Player Controller ( act on vehicle to give player steering, this will also allow us to hook in AI drivers easily )
 
-			We should decouple the physics system such that it only integrates the physics component of each entity
+			We should decouple the physics system such that it only integrates the physics component of each entity based on its velocity, acceleration, etc.
 		*/
 
 		rn::vector3f carHeading(0);
