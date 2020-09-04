@@ -1,12 +1,14 @@
 #include "Engine.h"
-#include "GfxHelper.h"
+
 #include "ConsoleColorer.h"
+#include "GfxHelper.h"
+
+#include "Definitions.h"
+
 #include "InputManager.h"
 #include "Road.h"
 #include "Player.h"
 #include "Camera.h"
-#include "Definitions.h"
-
 #include "DrawableSystem.h"
 #include "PhysicsSystem.h"
 #include "EntityFactory.h"

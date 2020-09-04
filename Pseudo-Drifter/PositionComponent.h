@@ -7,8 +7,9 @@
 	This is a purely data-oriented component and does not have a corresponding system
 */
 
-#include "Component.h"
 #include "Ronin-Math-Library/vector.h";
+
+#include "Component.h"
 
 class PositionComponent : public Component
 {

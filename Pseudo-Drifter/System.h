@@ -7,8 +7,9 @@
 	This class is quite barebones serving only as a parent class
 */
 
-#include "EntityManager.h"
 #include <SDL.h>
+
+#include "EntityManager.h"
 
 class Camera;
 

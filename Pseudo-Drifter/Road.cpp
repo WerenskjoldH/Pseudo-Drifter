@@ -1,7 +1,10 @@
 #include "Road.h"
+
 #include "Definitions.h"
-#include "Camera.h"
+
 #include "Ronin-Math-Library/vector.h"
+
+#include "Camera.h"
 
 Road::Road()
 {

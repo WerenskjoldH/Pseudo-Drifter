@@ -1,6 +1,7 @@
+#include "ConsoleColorer.h"
+
 #include "Camera.h"
 #include "GameObject.h"
-#include "ConsoleColorer.h"
 #include "PositionComponent.h"
 #include "EntityManager.h"
 

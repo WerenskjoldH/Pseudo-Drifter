@@ -16,14 +16,14 @@
 		* Adding a component should return the component
 */
 
-#include "Entity.h"
-#include "Component.h"
-
-#include "ConsoleColorer.h"
-
 #include <unordered_map>
 #include <memory>
 #include <vector>
+
+#include "ConsoleColorer.h"
+
+#include "Entity.h"
+#include "Component.h"
 
 class EntityManager
 {

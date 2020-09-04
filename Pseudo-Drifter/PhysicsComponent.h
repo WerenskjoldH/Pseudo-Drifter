@@ -8,9 +8,10 @@
 		* This should maybe contain helper methods for applying forces, handling collision forces, etc.
 */
 
+#include "Ronin-Math-Library/vector.h"
+
 #include "Component.h"
 #include "InputManager.h"
-#include "Ronin-Math-Library/vector.h"
 
 class PhysicsComponent : public Component
 {

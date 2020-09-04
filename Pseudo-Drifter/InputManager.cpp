@@ -1,6 +1,8 @@
 #include "InputManager.h"
-#include "ConsoleColorer.h"
+
 #include <iostream>
+
+#include "ConsoleColorer.h"
 
 InputManager::InputManager()
 {

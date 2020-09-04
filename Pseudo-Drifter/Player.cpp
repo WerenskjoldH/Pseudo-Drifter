@@ -1,6 +1,9 @@
 #include "Player.h"
+
 #include "GfxHelper.h"
+
 #include "Definitions.h"
+
 #include "Camera.h"
 #include "InputManager.h"
 

@@ -1,8 +1,9 @@
 #include "PhysicsSystem.h"
 
+#include "Definitions.h"
+
 #include "PhysicsComponent.h"
 #include "PositionComponent.h"
-#include "Definitions.h"
 
 static float FloatClamp(float v, float min, float max)
 {

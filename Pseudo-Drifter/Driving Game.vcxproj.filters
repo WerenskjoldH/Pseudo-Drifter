@@ -63,14 +63,14 @@
     <ClCompile Include="PhysicsSystem.cpp">
       <Filter>Source Files\Entity-Component System</Filter>
     </ClCompile>
-    <ClCompile Include="Entity.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Component.cpp">
       <Filter>Source Files\Entity-Component System</Filter>
     </ClCompile>
     <ClCompile Include="PhysicsComponent.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Entity-Component System</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity.cpp">
+      <Filter>Source Files\Entity-Component System</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

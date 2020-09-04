@@ -1,7 +1,9 @@
 #include "DrawableSystem.h"
-#include "GfxHelper.h"
-#include "Definitions.h"
+
 #include "Ronin-Math-Library/vector.h"
+#include "GfxHelper.h"
+
+#include "Definitions.h"
 
 #include "Camera.h"
 #include "PositionComponent.h"

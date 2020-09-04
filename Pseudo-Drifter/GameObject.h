@@ -11,6 +11,7 @@
 */
 
 #include <SDL.h>
+
 #include "Ronin-Math-Library/vector.h"
 
 class Camera;

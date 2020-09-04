@@ -13,15 +13,15 @@
 		* Occlusion Culling 
 */
 
-#include "Definitions.h"
-#include "InputManager.h"
-
-#include "EntityManager.h"
-#include "SystemManager.h"
-
 #include <SDL.h>
 #include <memory>
 #include <vector>
+
+#include "Definitions.h"
+
+#include "InputManager.h"
+#include "EntityManager.h"
+#include "SystemManager.h"
 
 class Road;
 class Player;

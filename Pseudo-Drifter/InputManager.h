@@ -13,6 +13,7 @@
 */
 
 #include <SDL.h>
+
 #include <unordered_map>
 
 struct Key
