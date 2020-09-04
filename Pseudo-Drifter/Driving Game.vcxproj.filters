@@ -69,6 +69,9 @@
     <ClCompile Include="Component.cpp">
       <Filter>Source Files\Entity-Component System</Filter>
     </ClCompile>
+    <ClCompile Include="PhysicsComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">

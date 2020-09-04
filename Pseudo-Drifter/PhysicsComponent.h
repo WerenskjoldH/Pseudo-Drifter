@@ -18,7 +18,7 @@ public:
 	rn::vector3f velocity;
 	rn::vector3f acceleration;
 
-	PhysicsComponent() : Component("PhysicsComponent") { velocity = 0; acceleration = 0; }
+	PhysicsComponent();
 };
 
 #endif
