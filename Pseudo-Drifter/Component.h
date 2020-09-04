@@ -22,7 +22,9 @@ public:
 	Component(const std::string iComponentName);
 	virtual ~Component() {};
 
-	const std::string& GetComponentName() const;
+	const std::string& GetComponentName() const {
+		return componentName;
+	};
 
 };
 
