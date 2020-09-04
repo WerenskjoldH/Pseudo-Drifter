@@ -16,9 +16,9 @@ std::shared_ptr<Entity> CreateBall(EntityManager& entityManager, rn::vector3f po
 std::shared_ptr<Entity> CreatePlayer(EntityManager& entityManager, Camera& cam, rn::vector3f position, rn::vector4f color, int radius)
 {
 	std::shared_ptr<Entity> player = entityManager.AddEntity();
-	entityManager.AddComponent<PositionComponent>(player, new PositionComponent(position));
+	entityManager.AddComponent<PositionComponent>(player, new PositionComponent(position))->dV.wV.z = cam.depth * cam.v.y;
 
-	entityManager.GetComponent<PositionComponent>(player)->dV.wV.z = cam.depth * cam.v.y;
+	//entityManager.GetComponent<PositionComponent>(player)->dV.wV.z = cam.depth * cam.v.y;
 
 	entityManager.AddComponent<DrawableComponent>(player, new DrawableComponent(color, radius));
 	entityManager.AddComponent<PhysicsComponent>(player, new PhysicsComponent());

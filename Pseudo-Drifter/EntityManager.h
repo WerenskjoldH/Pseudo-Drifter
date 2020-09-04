@@ -12,8 +12,6 @@
 		* shared_ptr is being abused 
 		* Is a vector really best given how often we may remove objects? The reduced cache misses might still mean yes. I want to explore this
 		* Memory Pooling on Maps
-		* Should I just migrate definitions into the header? Due to templates we have to for a lot of functions anyways
-		* Adding a component should return the component
 */
 
 #include <unordered_map>
@@ -28,7 +26,13 @@
 class EntityManager
 {
 private:
-	std::unordered_map<std::string, std::shared_ptr<std::unordered_map<std::shared_ptr<Entity>, std::shared_ptr<Component>>>> entityToComponents;
+	// Added for simplicity & readability
+	typedef std::unordered_map<std::shared_ptr<Entity>, std::shared_ptr<Component>> entityComponentMap;
+
+private:
+	// This is a mapping from component name to an entity <-> component map
+	// Generic component name -> (entity -> entity's component data)
+	std::unordered_map<std::string, std::shared_ptr<entityComponentMap>> entityToComponents;
 
 	std::vector<std::shared_ptr<Entity>> entities;
 
@@ -41,17 +45,22 @@ public:
 	void RemoveEntity(std::shared_ptr<Entity> e);
 
 	template <class T>
-	void AddComponent(std::shared_ptr<Entity> e, T* c)
+	std::shared_ptr<T> AddComponent(std::shared_ptr<Entity> e, T* c)
 	{
 		const char* componentName = typeid(T).name();
 
 		auto entityComponents = entityToComponents[componentName];
 		if (!entityComponents)
 		{
-			entityComponents = std::make_shared<std::unordered_map<std::shared_ptr<Entity>, std::shared_ptr<Component>>>();
+			entityComponents = std::make_shared<entityComponentMap>();
 			entityToComponents[componentName] = entityComponents;
 		}
-		(*entityComponents)[e] = std::make_shared<T>(*c);
+		
+		std::shared_ptr<T> sharedC = std::make_shared<T>(*c);
+
+		(*entityComponents)[e] = sharedC;
+
+		return sharedC;
 	}
 
 	template <class T>
@@ -93,7 +102,7 @@ public:
 private:
 	unsigned int GenerateNewID() 
 	{     
-		// This is a very temporary fix and we really should be reusing ids that have been freed
+		// This is a temporary fix and we really should be reusing ids that have been freed
 		if (nextAvailableID == UINT32_MAX - 1)
 		{
 			WRITE_CONSOLE_WARNING("ENTITY MANAGER", "WARNING", "Hit max number of available IDs, returning to 0");
