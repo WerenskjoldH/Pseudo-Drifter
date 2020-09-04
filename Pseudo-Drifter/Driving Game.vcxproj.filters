@@ -42,13 +42,7 @@
     <ClCompile Include="Road.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Entity.cpp">
-      <Filter>Source Files\Entity-Component System</Filter>
-    </ClCompile>
     <ClCompile Include="DrawableComponent.cpp">
-      <Filter>Source Files\Entity-Component System</Filter>
-    </ClCompile>
-    <ClCompile Include="Component.cpp">
       <Filter>Source Files\Entity-Component System</Filter>
     </ClCompile>
     <ClCompile Include="EntityManager.cpp">
@@ -67,6 +61,12 @@
       <Filter>Source Files\Entity-Component System</Filter>
     </ClCompile>
     <ClCompile Include="PhysicsSystem.cpp">
+      <Filter>Source Files\Entity-Component System</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Component.cpp">
       <Filter>Source Files\Entity-Component System</Filter>
     </ClCompile>
   </ItemGroup>

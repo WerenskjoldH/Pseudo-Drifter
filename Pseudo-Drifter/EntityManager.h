@@ -91,7 +91,18 @@ public:
 
 
 private:
-	unsigned int GenerateNewID();
+	unsigned int GenerateNewID() 
+	{     
+		// This is a very temporary fix and we really should be reusing ids that have been freed
+		if (nextAvailableID == UINT32_MAX - 1)
+		{
+			WRITE_CONSOLE_WARNING("ENTITY MANAGER", "WARNING", "Hit max number of available IDs, returning to 0");
+			nextAvailableID = 0;
+		}
+
+		return nextAvailableID++;
+	}
+		;
 };
 
 #endif
