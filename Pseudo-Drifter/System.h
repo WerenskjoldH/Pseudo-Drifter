@@ -18,9 +18,13 @@ protected:
 	EntityManager* entityManager;
 
 public:
-	System();
+	System() {};
 	~System() {};
-	void AssignEntityManager(EntityManager* iEntityManager);
+
+	void AssignEntityManager(EntityManager* iEntityManager) {
+		entityManager = iEntityManager;
+	};
+
 	virtual void Update(float dt) {};
 	virtual void Draw(SDL_Renderer* renderer, const Camera& c) {};
 

@@ -63,9 +63,6 @@
     <ClCompile Include="DrawableSystem.cpp">
       <Filter>Source Files\Entity-Component System</Filter>
     </ClCompile>
-    <ClCompile Include="System.cpp">
-      <Filter>Source Files\Entity-Component System</Filter>
-    </ClCompile>
     <ClCompile Include="EntityFactory.cpp">
       <Filter>Source Files\Entity-Component System</Filter>
     </ClCompile>

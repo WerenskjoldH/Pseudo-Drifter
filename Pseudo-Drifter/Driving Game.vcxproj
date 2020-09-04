@@ -150,7 +150,6 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PositionComponent.cpp" />
     <ClCompile Include="Road.cpp" />
-    <ClCompile Include="System.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
